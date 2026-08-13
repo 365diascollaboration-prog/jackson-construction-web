@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Jackson Construction - Interactive Web Logic (Filter & Micro-Animation Edition)
+   Jackson Construction - Interactive Web Logic (Filtered Photos & Tabs Edition)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -26,19 +26,25 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.addEventListener('touchstart', playVideosSafely, { once: true });
 
     // ----------------------------------------------------------------------
-    // 1. Services Category Filter Tabs Logic
+    // 1. Services Category Filter Tabs Logic (Dynamic Photo Display)
     // ----------------------------------------------------------------------
     const filterBtns = document.querySelectorAll('.filter-btn');
     const serviceCards = document.querySelectorAll('.service-card');
+    const servicesGrid = document.getElementById('servicesGrid');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function () {
-            // Remove active class from all buttons
             filterBtns.forEach(b => b.classList.remove('active'));
-            // Add active class to clicked button
             this.classList.add('active');
 
             const filterValue = this.getAttribute('data-filter');
+
+            // Si se selecciona un filtro específico, activamos la clase .filtered para desplegar la foto elegante
+            if (filterValue === 'all') {
+                if (servicesGrid) servicesGrid.classList.remove('filtered');
+            } else {
+                if (servicesGrid) servicesGrid.classList.add('filtered');
+            }
 
             serviceCards.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
