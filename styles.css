@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Jackson Construction - Main Design System & Styles (Strict Miniature 3D Icon Edition)
+   Jackson Construction - Main Design System & Styles (Custom PNG Service Icons Edition)
    ========================================================================== */
 
 :root {
@@ -251,7 +251,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Hero Section & Strict Miniature 3D Icons
+   Hero Section
    ========================================================================== */
 
 .hero-section {
@@ -361,30 +361,6 @@ h1, h2, h3, h4 {
     flex-shrink: 0;
 }
 
-/* Iconos 3D Estrictos en Miniatura (20px) */
-.trust-3d-img {
-    width: 20px !important;
-    height: 20px !important;
-    max-width: 20px !important;
-    max-height: 20px !important;
-    object-fit: contain !important;
-    filter: drop-shadow(0 2px 4px rgba(245, 166, 35, 0.5));
-    transition: transform 0.3s ease;
-}
-
-.trust-item:hover .trust-3d-img {
-    transform: scale(1.15);
-}
-
-.why-3d-img {
-    width: 20px !important;
-    height: 20px !important;
-    max-width: 20px !important;
-    max-height: 20px !important;
-    object-fit: contain !important;
-    filter: drop-shadow(0 2px 4px rgba(245, 166, 35, 0.5));
-}
-
 .trust-text strong {
     display: block;
     font-size: 0.95rem;
@@ -397,7 +373,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Services Section & Dynamic Photo Headers
+   Services Section & PNG Icons
    ========================================================================== */
 
 .section-services {
@@ -519,20 +495,33 @@ h1, h2, h3, h4 {
     width: 52px;
     height: 52px;
     flex-shrink: 0;
-    border-radius: 12px;
-    background: rgba(245, 166, 35, 0.18);
+    border-radius: 14px;
+    background: rgba(245, 166, 35, 0.15);
+    border: 1px solid var(--border-glass);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--accent-gold);
     transition: all 0.3s ease;
 }
 
+.service-icon-png {
+    width: 36px;
+    height: 36px;
+    max-width: 36px;
+    max-height: 36px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(245, 166, 35, 0.45));
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-icon-png {
+    transform: scale(1.15) rotate(4deg);
+}
+
 .service-card:hover .service-icon-wrapper {
-    background: var(--accent-gold);
-    color: var(--bg-dark);
-    box-shadow: 0 0 15px rgba(245, 166, 35, 0.5);
-    transform: rotate(5deg) scale(1.08);
+    background: rgba(245, 166, 35, 0.28);
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 15px rgba(245, 166, 35, 0.4);
 }
 
 .service-card-header h3 {
