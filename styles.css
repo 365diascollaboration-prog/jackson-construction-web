@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Jackson Construction - Ultra-Fast 60FPS Performance & Enlarged Brand PNGs
+   Jackson Construction - Ultra-Fast 60FPS Performance & Prominent Brand PNGs
    ========================================================================== */
 
 :root {
@@ -836,7 +836,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Why Choose Us (Nuestro Compromiso) - Enlarged Brand PNG Shields
+   Why Choose Us (Nuestro Compromiso) - Prominent XL Brand PNG Shields
    ========================================================================== */
 
 .section-why {
@@ -855,49 +855,50 @@ h1, h2, h3, h4 {
     margin-top: 36px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 32px;
 }
 
 .why-item {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 24px;
 }
 
 .why-icon-3d {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    background: rgba(245, 166, 35, 0.18);
-    border: 1.5px solid var(--border-gold-glass);
+    width: 84px;
+    height: 84px;
+    border-radius: 20px;
+    background: rgba(245, 166, 35, 0.2);
+    border: 2px solid var(--border-gold-glass);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s var(--apple-ease), background 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s var(--apple-ease), background 0.3s ease, border-color 0.3s ease;
 }
 
 .why-item:hover .why-icon-3d {
-    transform: scale(1.08) rotate(3deg);
-    background: rgba(245, 166, 35, 0.3);
+    transform: scale(1.1) rotate(4deg);
+    background: rgba(245, 166, 35, 0.35);
     border-color: var(--accent-gold);
+    box-shadow: 0 12px 30px rgba(245, 166, 35, 0.4);
 }
 
 .why-shield-png {
-    width: 44px;
-    height: 44px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
-    filter: drop-shadow(0 3px 8px rgba(245, 166, 35, 0.55));
+    filter: drop-shadow(0 4px 12px rgba(245, 166, 35, 0.65));
 }
 
 .why-item h4 {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     margin-bottom: 6px;
 }
 
 .why-item p {
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
 }
 
@@ -926,19 +927,19 @@ h1, h2, h3, h4 {
 .contact-badge-3d {
     display: flex;
     justify-content: center;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .contact-shield-png {
-    width: 58px;
-    height: 58px;
+    width: 72px;
+    height: 72px;
     object-fit: contain;
-    filter: drop-shadow(0 4px 14px rgba(245, 166, 35, 0.6));
+    filter: drop-shadow(0 6px 18px rgba(245, 166, 35, 0.65));
     transition: transform 0.3s ease;
 }
 
 .why-card-contact:hover .contact-shield-png {
-    transform: scale(1.1);
+    transform: scale(1.12);
 }
 
 .why-card-contact h3 {
