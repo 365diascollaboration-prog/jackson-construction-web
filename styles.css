@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Jackson Construction - Main Design System & Styles (Proportional 3D Icon Edition)
+   Jackson Construction - Main Design System & Styles (Strict Miniature 3D Icon Edition)
    ========================================================================== */
 
 :root {
@@ -251,7 +251,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Hero Section & Proportional 3D Icons
+   Hero Section & Strict Miniature 3D Icons
    ========================================================================== */
 
 .hero-section {
@@ -349,8 +349,8 @@ h1, h2, h3, h4 {
 }
 
 .trust-icon {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
     background: rgba(245, 166, 35, 0.2);
     border: 1px solid var(--border-glass);
@@ -361,36 +361,28 @@ h1, h2, h3, h4 {
     flex-shrink: 0;
 }
 
-/* Iconos 3D Escala Proporcional Perfecta */
-.trust-icon-3d {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: rgba(245, 166, 35, 0.18);
-    border: 1px solid var(--border-glass);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
+/* Iconos 3D Estrictos en Miniatura (20px) */
 .trust-3d-img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    filter: drop-shadow(0 2px 6px rgba(245, 166, 35, 0.4));
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 2px 4px rgba(245, 166, 35, 0.5));
     transition: transform 0.3s ease;
 }
 
 .trust-item:hover .trust-3d-img {
-    transform: scale(1.12) rotate(4deg);
+    transform: scale(1.15);
 }
 
 .why-3d-img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    filter: drop-shadow(0 2px 6px rgba(245, 166, 35, 0.4));
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 2px 4px rgba(245, 166, 35, 0.5));
 }
 
 .trust-text strong {
