@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Jackson Construction - Ultra-Fast 60FPS Performance & Crystal Aesthetics
+   Jackson Construction - Ultra-Fast 60FPS Performance & Enlarged Brand PNGs
    ========================================================================== */
 
 :root {
@@ -220,7 +220,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Navbar (Hardware Accelerated Translucent Bar)
+   Navbar
    ========================================================================== */
 
 .navbar {
@@ -414,7 +414,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Services Section (Lightweight 60fps Glass)
+   Services Section
    ========================================================================== */
 
 .section-services {
@@ -660,7 +660,7 @@ h1, h2, h3, h4 {
 }
 
 .calc-options-grid {
-    display grid;
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 14px;
 }
@@ -836,7 +836,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Why Choose Us & Contact Box
+   Why Choose Us (Nuestro Compromiso) - Enlarged Brand PNG Shields
    ========================================================================== */
 
 .section-why {
@@ -855,40 +855,49 @@ h1, h2, h3, h4 {
     margin-top: 36px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 28px;
 }
 
 .why-item {
     display: flex;
-    gap: 20px;
+    align-items: center;
+    gap: 22px;
 }
 
 .why-icon-3d {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: rgba(245, 166, 35, 0.15);
-    border: 1px solid var(--border-gold-glass);
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: rgba(245, 166, 35, 0.18);
+    border: 1.5px solid var(--border-gold-glass);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s var(--apple-ease), background 0.3s ease;
+}
+
+.why-item:hover .why-icon-3d {
+    transform: scale(1.08) rotate(3deg);
+    background: rgba(245, 166, 35, 0.3);
+    border-color: var(--accent-gold);
 }
 
 .why-shield-png {
-    width: 28px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
     object-fit: contain;
-    filter: drop-shadow(0 2px 6px rgba(245, 166, 35, 0.4));
+    filter: drop-shadow(0 3px 8px rgba(245, 166, 35, 0.55));
 }
 
 .why-item h4 {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     margin-bottom: 6px;
 }
 
 .why-item p {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     color: var(--text-muted);
 }
 
@@ -921,10 +930,15 @@ h1, h2, h3, h4 {
 }
 
 .contact-shield-png {
-    width: 44px;
-    height: 44px;
+    width: 58px;
+    height: 58px;
     object-fit: contain;
-    filter: drop-shadow(0 4px 12px rgba(245, 166, 35, 0.5));
+    filter: drop-shadow(0 4px 14px rgba(245, 166, 35, 0.6));
+    transition: transform 0.3s ease;
+}
+
+.why-card-contact:hover .contact-shield-png {
+    transform: scale(1.1);
 }
 
 .why-card-contact h3 {
