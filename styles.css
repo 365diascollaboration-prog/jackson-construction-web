@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Jackson Construction - Main Design System & Styles (Custom PNG Service Icons Edition)
+   Jackson Construction - Main Design System & Styles (Full 10 PNG Assets Edition)
    ========================================================================== */
 
 :root {
@@ -576,7 +576,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Calculator Section
+   Calculator Section & PNG Badges
    ========================================================================== */
 
 .section-calculator {
@@ -588,6 +588,21 @@ h1, h2, h3, h4 {
 .calculator-wrapper {
     max-width: 800px;
     margin: 0 auto;
+}
+
+.badge-3d-shield {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 8px;
+    filter: drop-shadow(0 2px 6px rgba(245, 166, 35, 0.45));
+}
+
+.badge-3d-shield.inline {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
 }
 
 .calculator-card {
@@ -736,6 +751,9 @@ h1, h2, h3, h4 {
     color: var(--text-white);
     border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .before-img .img-label {
@@ -784,7 +802,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Why Choose Us & Contact Box
+   Why Choose Us & Contact Box PNG Shields
    ========================================================================== */
 
 .section-why {
@@ -812,11 +830,23 @@ h1, h2, h3, h4 {
     gap: 20px;
 }
 
-.why-num {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: var(--accent-gold);
+.why-icon-3d {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(245, 166, 35, 0.15);
+    border: 1px solid var(--border-glass);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.why-shield-png {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(245, 166, 35, 0.45));
 }
 
 .why-item h4 {
@@ -836,17 +866,31 @@ h1, h2, h3, h4 {
     padding: 36px;
     backdrop-filter: blur(18px);
     box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    text-align: center;
 }
 
 .brand-preview-card {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .why-logo-img {
-    height: 100px;
+    height: 90px;
     width: auto;
     filter: drop-shadow(0 4px 15px rgba(245, 166, 35, 0.4));
+}
+
+.contact-badge-3d {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.contact-shield-png {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 14px rgba(245, 166, 35, 0.55));
 }
 
 .why-card-contact h3 {
