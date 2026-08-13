@@ -1,18 +1,21 @@
 /* ==========================================================================
-   Jackson Construction - Main Design System & Styles (Full 10 PNG Assets Edition)
+   Jackson Construction - Apple Crystal Glassmorphism Design System
    ========================================================================== */
 
 :root {
-    --bg-dark: #0F1B2B;
-    --bg-card: rgba(22, 34, 52, 0.78);
-    --bg-card-hover: rgba(30, 46, 70, 0.90);
+    --bg-dark: #0B131F;
+    --bg-card: rgba(18, 30, 48, 0.62);
+    --bg-card-hover: rgba(26, 42, 68, 0.78);
     --accent-gold: #F5A623;
     --accent-gold-hover: #E09516;
+    --accent-gold-glow: rgba(245, 166, 35, 0.45);
     --text-white: #FFFFFF;
     --text-muted: #CBD5E1;
-    --border-glass: rgba(245, 166, 35, 0.30);
-    --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --border-glass: rgba(255, 255, 255, 0.16);
+    --border-gold-glass: rgba(245, 166, 35, 0.35);
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -28,6 +31,8 @@ body {
     color: var(--text-white);
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -38,7 +43,7 @@ body {
 }
 
 /* ==========================================================================
-   FIXED FULL-PAGE 3D VIDEO BACKGROUND
+   FIXED FULL-PAGE 3D VIDEO BACKGROUND & AMBIENT SHIMMER
    ========================================================================== */
 
 .video-container {
@@ -59,7 +64,7 @@ body {
     will-change: transform;
 }
 
-/* Video switcher based on screen size */
+/* Responsive video switcher */
 .desktop-video {
     display: block;
 }
@@ -83,39 +88,48 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(180deg, rgba(15, 27, 43, 0.30) 0%, rgba(15, 27, 43, 0.65) 50%, rgba(15, 27, 43, 0.85) 100%);
+    background: linear-gradient(180deg, rgba(11, 19, 31, 0.25) 0%, rgba(11, 19, 31, 0.60) 50%, rgba(11, 19, 31, 0.88) 100%);
     z-index: -1;
     pointer-events: none;
 }
 
 /* ==========================================================================
-   Typography & Badges
+   Apple-Style Typography & Glass Badges
    ========================================================================== */
 
 h1, h2, h3, h4 {
     font-family: var(--font-heading);
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.12;
     color: var(--text-white);
+    letter-spacing: -0.03em;
 }
 
 .text-gold {
     color: var(--accent-gold);
-    text-shadow: 0 0 15px rgba(245, 166, 35, 0.4);
+    background: linear-gradient(135deg, #FFF0D0 0%, #F5A623 50%, #D4820A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 20px rgba(245, 166, 35, 0.4));
 }
 
 .section-tag {
     display: inline-block;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 2px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
     color: var(--accent-gold);
     margin-bottom: 12px;
     text-transform: uppercase;
+    background: rgba(245, 166, 35, 0.12);
+    border: 1px solid var(--border-gold-glass);
+    padding: 6px 14px;
+    border-radius: 50px;
+    backdrop-filter: blur(12px);
 }
 
 .section-header {
-    margin-bottom: 48px;
+    margin-bottom: 56px;
 }
 
 .section-header.center {
@@ -123,21 +137,22 @@ h1, h2, h3, h4 {
 }
 
 .section-header h2 {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
     margin-bottom: 16px;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
 }
 
 .section-header p {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: var(--text-muted);
-    max-width: 600px;
+    max-width: 620px;
     margin: 0 auto;
+    font-weight: 400;
     text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
 
 /* ==========================================================================
-   Buttons
+   Buttons with Specular Highlights
    ========================================================================== */
 
 .btn {
@@ -145,49 +160,55 @@ h1, h2, h3, h4 {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 14px 28px;
-    border-radius: 8px;
+    padding: 15px 32px;
+    border-radius: 12px;
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 1rem;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s var(--apple-ease);
     border: none;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-gold {
-    background-color: var(--accent-gold);
+    background: linear-gradient(135deg, #F6B138 0%, #F5A623 50%, #E09516 100%);
     color: var(--bg-dark);
-    box-shadow: 0 4px 20px rgba(245, 166, 35, 0.4);
+    box-shadow: 0 6px 25px rgba(245, 166, 35, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.4);
 }
 
 .btn-gold:hover {
-    background-color: var(--accent-gold-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(245, 166, 35, 0.6);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(245, 166, 35, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.6);
 }
 
 .btn-glass {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
     color: var(--text-white);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
 .btn-glass:hover {
-    background: rgba(255, 255, 255, 0.28);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.22);
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .btn-lg {
-    padding: 16px 36px;
+    padding: 18px 40px;
     font-size: 1.1rem;
+    border-radius: 14px;
 }
 
 .btn-sm {
-    padding: 10px 18px;
+    padding: 11px 20px;
     font-size: 0.9rem;
+    border-radius: 10px;
 }
 
 .width-full {
@@ -199,7 +220,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Navbar & Transparent Logo Styling
+   Navbar - Apple Translucent Crystal Glass
    ========================================================================== */
 
 .navbar {
@@ -208,11 +229,12 @@ h1, h2, h3, h4 {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(15, 27, 43, 0.88);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(245, 166, 35, 0.25);
-    padding: 10px 0;
-    transition: all 0.3s ease;
+    background: rgba(11, 19, 31, 0.72);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 12px 0;
+    transition: all 0.4s var(--apple-ease);
 }
 
 .nav-container {
@@ -222,20 +244,20 @@ h1, h2, h3, h4 {
 }
 
 .nav-logo-img {
-    height: 56px;
+    height: 54px;
     width: auto;
-    filter: drop-shadow(0 2px 8px rgba(245, 166, 35, 0.3));
-    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 2px 10px rgba(245, 166, 35, 0.4));
+    transition: transform 0.4s var(--apple-ease), filter 0.4s var(--apple-ease);
 }
 
 .nav-logo-img:hover {
     transform: scale(1.05);
-    filter: drop-shadow(0 4px 14px rgba(245, 166, 35, 0.6));
+    filter: drop-shadow(0 4px 18px rgba(245, 166, 35, 0.7));
 }
 
 .nav-links {
     display: flex;
-    gap: 32px;
+    gap: 36px;
 }
 
 .nav-links a {
@@ -244,10 +266,12 @@ h1, h2, h3, h4 {
     font-size: 0.95rem;
     font-weight: 600;
     transition: color 0.3s ease;
+    opacity: 0.85;
 }
 
 .nav-links a:hover {
     color: var(--accent-gold);
+    opacity: 1;
 }
 
 /* ==========================================================================
@@ -259,25 +283,25 @@ h1, h2, h3, h4 {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding-top: 120px;
-    padding-bottom: 80px;
+    padding-top: 130px;
+    padding-bottom: 90px;
 }
 
 .hero-content {
     position: relative;
     z-index: 3;
-    max-width: 850px;
+    max-width: 860px;
 }
 
 .hero-brand-badge {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .hero-logo-img {
-    height: 125px;
+    height: 130px;
     width: auto;
-    filter: drop-shadow(0 8px 25px rgba(245, 166, 35, 0.45)) drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
-    transition: transform 0.3s ease;
+    filter: drop-shadow(0 10px 30px rgba(245, 166, 35, 0.5)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.9));
+    transition: transform 0.4s var(--apple-ease);
 }
 
 .hero-logo-img:hover {
@@ -287,16 +311,17 @@ h1, h2, h3, h4 {
 .hero-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
+    gap: 10px;
+    padding: 8px 18px;
     border-radius: 50px;
-    background: rgba(245, 166, 35, 0.2);
+    background: rgba(245, 166, 35, 0.15);
     border: 1px solid var(--accent-gold);
     color: var(--accent-gold);
     font-size: 0.85rem;
     font-weight: 700;
     margin-bottom: 24px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .badge-dot {
@@ -304,61 +329,84 @@ h1, h2, h3, h4 {
     height: 8px;
     border-radius: 50%;
     background-color: var(--accent-gold);
-    box-shadow: 0 0 10px var(--accent-gold);
+    box-shadow: 0 0 12px var(--accent-gold);
 }
 
 .hero-title {
-    font-size: 3.6rem;
-    letter-spacing: -1px;
+    font-size: 3.8rem;
+    letter-spacing: -0.035em;
     margin-bottom: 24px;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 6px 30px rgba(0, 0, 0, 0.9);
 }
 
 .hero-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.28rem;
     color: #E2E8F0;
-    margin-bottom: 40px;
-    max-width: 650px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    margin-bottom: 44px;
+    max-width: 680px;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
+    font-weight: 400;
 }
 
 .hero-buttons {
     display: flex;
-    gap: 16px;
-    margin-bottom: 60px;
+    gap: 18px;
+    margin-bottom: 64px;
     flex-wrap: wrap;
 }
 
 .trust-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+    padding-top: 36px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .trust-item {
     display: flex;
     align-items: center;
     gap: 14px;
-    background: rgba(15, 27, 43, 0.65);
-    padding: 14px 18px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(12px);
+    background: rgba(18, 30, 48, 0.55);
+    padding: 16px 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    transition: transform 0.4s var(--apple-ease), border-color 0.4s ease;
+}
+
+.trust-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-gold);
 }
 
 .trust-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgba(245, 166, 35, 0.2);
-    border: 1px solid var(--border-glass);
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(245, 166, 35, 0.18);
+    border: 1px solid var(--border-gold-glass);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--accent-gold);
     flex-shrink: 0;
+}
+
+.trust-3d-img {
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 2px 4px rgba(245, 166, 35, 0.5));
+    transition: transform 0.3s ease;
+}
+
+.trust-item:hover .trust-3d-img {
+    transform: scale(1.15);
 }
 
 .trust-text strong {
@@ -373,35 +421,36 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Services Section & PNG Icons
+   Services Section - Apple Frosted Crystal Cards
    ========================================================================== */
 
 .section-services {
-    padding: 100px 0;
-    background: rgba(15, 27, 43, 0.45);
-    backdrop-filter: blur(6px);
+    padding: 110px 0;
+    background: rgba(11, 19, 31, 0.40);
+    backdrop-filter: blur(10px);
 }
 
 .services-filter-tabs {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    margin-bottom: 40px;
+    gap: 14px;
+    margin-bottom: 48px;
     flex-wrap: wrap;
 }
 
 .filter-btn {
-    padding: 10px 22px;
+    padding: 12px 26px;
     border-radius: 50px;
-    background: rgba(22, 34, 52, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(18, 30, 48, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     color: var(--text-muted);
     font-family: var(--font-heading);
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(8px);
+    transition: all 0.4s var(--apple-ease);
+    backdrop-filter: blur(18px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
 .filter-btn:hover {
@@ -414,27 +463,28 @@ h1, h2, h3, h4 {
     background: var(--accent-gold);
     color: var(--bg-dark);
     border-color: var(--accent-gold);
-    box-shadow: 0 4px 15px rgba(245, 166, 35, 0.35);
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.45);
 }
 
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 28px;
+    gap: 30px;
 }
 
 .service-card {
     position: relative;
     background: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 20px;
-    padding: 32px 26px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 24px;
+    padding: 36px 28px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s var(--apple-ease);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.2);
     opacity: 1;
     transform: scale(1);
     overflow: hidden;
@@ -447,25 +497,26 @@ h1, h2, h3, h4 {
 }
 
 .service-card:hover {
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-12px) scale(1.02);
     border-color: var(--accent-gold);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(245, 166, 35, 0.3);
+    background: var(--bg-card-hover);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(245, 166, 35, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
 }
 
 .service-img-wrapper {
     display: none;
     width: 100%;
     height: 230px;
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     border: 1px solid rgba(245, 166, 35, 0.35);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
 
 .services-grid.filtered .service-img-wrapper {
     display: block;
-    animation: fadeIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    animation: fadeIn 0.4s var(--apple-ease);
 }
 
 @keyframes fadeIn {
@@ -477,7 +528,7 @@ h1, h2, h3, h4 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s var(--apple-ease);
 }
 
 .service-card:hover .service-card-img {
@@ -487,21 +538,21 @@ h1, h2, h3, h4 {
 .service-card-header {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 16px;
+    gap: 16px;
+    margin-bottom: 18px;
 }
 
 .service-icon-wrapper {
-    width: 52px;
-    height: 52px;
+    width: 54px;
+    height: 54px;
     flex-shrink: 0;
-    border-radius: 14px;
-    background: rgba(245, 166, 35, 0.15);
-    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+    background: rgba(245, 166, 35, 0.16);
+    border: 1px solid var(--border-gold-glass);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.4s var(--apple-ease);
 }
 
 .service-icon-png {
@@ -511,7 +562,7 @@ h1, h2, h3, h4 {
     max-height: 36px;
     object-fit: contain;
     filter: drop-shadow(0 2px 8px rgba(245, 166, 35, 0.45));
-    transition: transform 0.3s ease;
+    transition: transform 0.4s var(--apple-ease);
 }
 
 .service-card:hover .service-icon-png {
@@ -519,13 +570,13 @@ h1, h2, h3, h4 {
 }
 
 .service-card:hover .service-icon-wrapper {
-    background: rgba(245, 166, 35, 0.28);
+    background: rgba(245, 166, 35, 0.30);
     border-color: var(--accent-gold);
-    box-shadow: 0 0 15px rgba(245, 166, 35, 0.4);
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.5);
 }
 
 .service-card-header h3 {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     line-height: 1.25;
 }
 
@@ -537,29 +588,29 @@ h1, h2, h3, h4 {
     color: var(--bg-dark);
     font-size: 0.75rem;
     font-weight: 800;
-    padding: 4px 12px;
+    padding: 5px 14px;
     border-radius: 50px;
     letter-spacing: 1px;
     z-index: 10;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
 .service-card p {
-    font-size: 0.92rem;
+    font-size: 0.94rem;
     color: var(--text-muted);
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .service-list {
     list-style: none;
-    margin-bottom: 24px;
+    margin-bottom: 26px;
 }
 
 .service-list li {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     color: var(--text-white);
-    margin-bottom: 8px;
-    padding-left: 20px;
+    margin-bottom: 10px;
+    padding-left: 22px;
     position: relative;
 }
 
@@ -576,17 +627,17 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Calculator Section & PNG Badges
+   Calculator Section - Crystal Box
    ========================================================================== */
 
 .section-calculator {
-    padding: 100px 0;
-    background: rgba(15, 27, 43, 0.55);
-    backdrop-filter: blur(8px);
+    padding: 110px 0;
+    background: rgba(11, 19, 31, 0.50);
+    backdrop-filter: blur(12px);
 }
 
 .calculator-wrapper {
-    max-width: 800px;
+    max-width: 820px;
     margin: 0 auto;
 }
 
@@ -599,35 +650,30 @@ h1, h2, h3, h4 {
     filter: drop-shadow(0 2px 6px rgba(245, 166, 35, 0.45));
 }
 
-.badge-3d-shield.inline {
-    width: 24px;
-    height: 24px;
-    margin-right: 6px;
-}
-
 .calculator-card {
     background: var(--bg-card);
-    border: 1px solid var(--border-glass);
-    border-radius: 24px;
-    padding: 40px;
-    backdrop-filter: blur(18px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 28px;
+    padding: 44px;
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 
 .calc-step {
-    margin-bottom: 32px;
+    margin-bottom: 36px;
 }
 
 .calc-step h3 {
-    font-size: 1.15rem;
-    margin-bottom: 16px;
+    font-size: 1.2rem;
+    margin-bottom: 18px;
     color: var(--accent-gold);
 }
 
 .calc-options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 14px;
+    gap: 16px;
 }
 
 .option-card {
@@ -642,39 +688,40 @@ h1, h2, h3, h4 {
 
 .option-content {
     display: block;
-    padding: 18px;
-    border-radius: 12px;
-    background: rgba(15, 27, 43, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.2s ease;
+    padding: 20px;
+    border-radius: 14px;
+    background: rgba(11, 19, 31, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: all 0.3s var(--apple-ease);
 }
 
 .option-card input:checked + .option-content {
     border-color: var(--accent-gold);
-    background: rgba(245, 166, 35, 0.2);
-    box-shadow: 0 0 15px rgba(245, 166, 35, 0.3);
+    background: rgba(245, 166, 35, 0.22);
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.35);
 }
 
 .option-content strong {
     display: block;
-    font-size: 0.95rem;
+    font-size: 0.98rem;
     color: var(--text-white);
 }
 
 .option-content small {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
 }
 
 .calc-result-box {
-    margin-top: 32px;
-    padding: 28px;
-    border-radius: 16px;
-    background: rgba(15, 27, 43, 0.92);
+    margin-top: 36px;
+    padding: 32px;
+    border-radius: 20px;
+    background: rgba(11, 19, 31, 0.90);
     border: 1px solid var(--accent-gold);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 22px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
 }
 
 .result-text span {
@@ -685,36 +732,36 @@ h1, h2, h3, h4 {
 }
 
 .result-text h4 {
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     color: var(--accent-gold);
     margin: 6px 0;
 }
 
 .result-text p {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     color: var(--text-white);
 }
 
 /* ==========================================================================
-   Portfolio / Before & After Slider
+   Portfolio / Before & After Slider - Crystal Border
    ========================================================================== */
 
 .section-portfolio {
-    padding: 100px 0;
-    background: rgba(15, 27, 43, 0.5);
-    backdrop-filter: blur(6px);
+    padding: 110px 0;
+    background: rgba(11, 19, 31, 0.45);
+    backdrop-filter: blur(10px);
 }
 
 .before-after-container {
     position: relative;
     width: 100%;
-    max-width: 900px;
-    height: 550px;
+    max-width: 920px;
+    height: 560px;
     margin: 0 auto;
-    border-radius: 24px;
+    border-radius: 28px;
     overflow: hidden;
-    border: 2px solid var(--border-glass);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--border-gold-glass);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
     user-select: none;
 }
 
@@ -740,28 +787,28 @@ h1, h2, h3, h4 {
 
 .img-label {
     position: absolute;
-    top: 20px;
-    padding: 8px 18px;
-    border-radius: 8px;
-    background: rgba(15, 27, 43, 0.9);
+    top: 22px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: rgba(11, 19, 31, 0.88);
     font-family: var(--font-heading);
     font-size: 0.85rem;
     font-weight: 800;
     letter-spacing: 1px;
     color: var(--text-white);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .before-img .img-label {
-    left: 20px;
+    left: 22px;
 }
 
 .after-img .img-label {
-    right: 20px;
+    right: 22px;
     color: var(--accent-gold);
     border-color: var(--accent-gold);
 }
@@ -784,12 +831,12 @@ h1, h2, h3, h4 {
     height: 100%;
     width: 3px;
     background-color: var(--accent-gold);
-    box-shadow: 0 0 10px var(--accent-gold);
+    box-shadow: 0 0 12px var(--accent-gold);
 }
 
 .handle-circle {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background: var(--accent-gold);
     color: var(--bg-dark);
@@ -797,45 +844,45 @@ h1, h2, h3, h4 {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    box-shadow: 0 0 20px rgba(0,0,0,0.8), 0 0 10px var(--accent-gold);
+    box-shadow: 0 0 25px rgba(0,0,0,0.8), 0 0 15px var(--accent-gold);
     z-index: 10;
 }
 
 /* ==========================================================================
-   Why Choose Us & Contact Box PNG Shields
+   Why Choose Us & Contact Box
    ========================================================================== */
 
 .section-why {
-    padding: 100px 0;
-    background: rgba(15, 27, 43, 0.65);
-    backdrop-filter: blur(10px);
+    padding: 110px 0;
+    background: rgba(11, 19, 31, 0.60);
+    backdrop-filter: blur(16px);
 }
 
 .why-grid {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
-    gap: 48px;
+    gap: 52px;
     align-items: center;
 }
 
 .why-list {
-    margin-top: 36px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 28px;
 }
 
 .why-item {
     display: flex;
-    gap: 20px;
+    gap: 22px;
 }
 
 .why-icon-3d {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    background: rgba(245, 166, 35, 0.15);
-    border: 1px solid var(--border-glass);
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(245, 166, 35, 0.16);
+    border: 1px solid var(--border-gold-glass);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -850,78 +897,79 @@ h1, h2, h3, h4 {
 }
 
 .why-item h4 {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     margin-bottom: 6px;
 }
 
 .why-item p {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     color: var(--text-muted);
 }
 
 .why-card-contact {
     background: var(--bg-card);
-    border: 1px solid var(--border-glass);
-    border-radius: 24px;
-    padding: 36px;
-    backdrop-filter: blur(18px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 28px;
+    padding: 40px;
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.55), inset 0 1px 1px rgba(255, 255, 255, 0.2);
     text-align: center;
 }
 
 .brand-preview-card {
     text-align: center;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .why-logo-img {
-    height: 90px;
+    height: 95px;
     width: auto;
-    filter: drop-shadow(0 4px 15px rgba(245, 166, 35, 0.4));
+    filter: drop-shadow(0 4px 18px rgba(245, 166, 35, 0.45));
 }
 
 .contact-badge-3d {
     display: flex;
     justify-content: center;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .contact-shield-png {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     object-fit: contain;
-    filter: drop-shadow(0 4px 14px rgba(245, 166, 35, 0.55));
+    filter: drop-shadow(0 4px 16px rgba(245, 166, 35, 0.6));
 }
 
 .why-card-contact h3 {
-    font-size: 1.5rem;
-    margin-bottom: 12px;
+    font-size: 1.55rem;
+    margin-bottom: 14px;
 }
 
 .why-card-contact p {
     font-size: 0.95rem;
     color: var(--text-muted);
-    margin-bottom: 24px;
+    margin-bottom: 26px;
 }
 
 .contact-box {
-    background: rgba(15, 27, 43, 0.85);
-    padding: 20px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 24px;
+    background: rgba(11, 19, 31, 0.85);
+    padding: 22px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    margin-bottom: 26px;
 }
 
 .contact-lbl {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
     margin-bottom: 6px;
 }
 
 .phone-link {
     font-family: var(--font-heading);
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     font-weight: 900;
     color: var(--accent-gold);
     text-decoration: none;
@@ -932,10 +980,10 @@ h1, h2, h3, h4 {
    ========================================================================== */
 
 .footer {
-    background-color: rgba(10, 18, 30, 0.95);
-    padding: 60px 0 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(16px);
+    background-color: rgba(8, 14, 24, 0.96);
+    padding: 64px 0 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(20px);
 }
 
 .footer-content {
@@ -948,26 +996,26 @@ h1, h2, h3, h4 {
 }
 
 .footer-logo-img {
-    height: 64px;
+    height: 68px;
     width: auto;
-    margin-bottom: 12px;
-    filter: drop-shadow(0 2px 10px rgba(245, 166, 35, 0.3));
+    margin-bottom: 14px;
+    filter: drop-shadow(0 2px 12px rgba(245, 166, 35, 0.35));
 }
 
 .footer-brand p {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     color: var(--text-muted);
-    max-width: 400px;
+    max-width: 420px;
 }
 
 .footer-contact h4 {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     margin-bottom: 8px;
     color: var(--accent-gold);
 }
 
 .footer-contact p {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     color: var(--text-muted);
 }
 
@@ -975,28 +1023,28 @@ h1, h2, h3, h4 {
     text-align: center;
     font-size: 0.85rem;
     color: var(--text-muted);
-    padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .whatsapp-float {
     position: fixed;
-    bottom: 28px;
-    right: 28px;
-    width: 60px;
-    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    width: 62px;
+    height: 62px;
     border-radius: 50%;
     background-color: #25D366;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
     z-index: 999;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s var(--apple-ease);
 }
 
 .whatsapp-float:hover {
-    transform: scale(1.1);
+    transform: scale(1.12);
 }
 
 /* ==========================================================================
@@ -1015,22 +1063,22 @@ h1, h2, h3, h4 {
     }
     
     .hero-title {
-        font-size: 2.4rem;
+        font-size: 2.5rem;
     }
 
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 1.05rem;
     }
 
     .before-after-container {
-        height: 380px;
+        height: 390px;
     }
 
     .calculator-card {
-        padding: 24px;
+        padding: 26px;
     }
 
     .hero-logo-img {
-        height: 85px;
+        height: 90px;
     }
 }
