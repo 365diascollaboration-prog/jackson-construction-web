@@ -10,10 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Three.js 3D WebGL Engine & OrbitControls -->
-    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
 
@@ -224,17 +220,17 @@
         </div>
     </section>
 
-    <!-- SECCIÓN 3D INTERACTIVA THREE.JS (MODELO ARQUITECTÓNICO DE BAÑO COMPLETO 3D) -->
+    <!-- SECCIÓN FOTORREALISTA INTERACTIVA DE BAÑOS & REMODELACIÓN 3D -->
     <section class="section-3d-viewer" id="viewer3d">
         <div class="container">
             <div class="section-header center">
-                <span class="section-tag gold">ARQUITECTURA INTERACTIVA 3D</span>
-                <h2>Modelo 3D de Baño & Remodelación</h2>
-                <p>Arrastra con el dedo o mouse para rotar en 3D el baño completo: <strong>Sanitario (Toilet), Ducha con Puertas de Cristal, Ventana y Pisos</strong>.</p>
+                <span class="section-tag gold">SHOWROOM INTERACTIVO DE ARQUITECTURA</span>
+                <h2>Configurador Interactivo de Baños de Lujo</h2>
+                <p>Haz clic en los estilos de losetas y toca los <strong>Puntos de Inspección 3D 📍</strong> (Ducha de Cristal, Sanitario, Mueble & Espejo LED) para explorar cada detalle.</p>
             </div>
 
             <div class="viewer-3d-card">
-                <!-- Selector de Materiales 3D -->
+                <!-- Selector de Estilos y Losetas 3D -->
                 <div class="material-controls">
                     <button class="mat-btn active" data-mat="carrara">
                         <span class="mat-dot carrara-dot"></span> Porcelanato Carrara
@@ -250,22 +246,63 @@
                     </button>
                 </div>
 
-                <!-- Canvas de Renderizado WebGL Three.js -->
+                <!-- Canvas de Render Fotorrealista con Puntos de Inspección 3D -->
                 <div class="canvas-3d-wrapper" id="canvas3dWrapper">
-                    <div id="canvas3dContainer" class="canvas-3d-container"></div>
+                    <img id="render3dImage" src="assets/bathroom_carrara_3d.jpg" alt="Render 3D Baño de Lujo Carrara" class="render-3d-img">
+
+                    <!-- Hotspot 1: Ducha de Cristal -->
+                    <div class="hotspot-pin pin-shower" style="top: 35%; right: 22%;" data-title="Ducha en Cristal Templado" data-desc="Cabina en cristal templado sin marcos con grifería italiana en acabado dorado resistente a la humedad.">
+                        <span class="pin-pulse"></span>
+                        <span class="pin-icon">🚿</span>
+                        <div class="pin-tooltip">
+                            <strong>Ducha en Cristal Templado</strong>
+                            <p>Cristal sin marcos de 10mm con grifería de lujo.</p>
+                        </div>
+                    </div>
+
+                    <!-- Hotspot 2: Mueble & Espejo LED -->
+                    <div class="hotspot-pin pin-vanity" style="top: 42%; left: 48%;" data-title="Mueble Flotante & Espejo LED" data-desc="Mueble suspendido con lavamanos de vasija de cerámica y espejo retroiluminado LED cálido.">
+                        <span class="pin-pulse"></span>
+                        <span class="pin-icon">🪞</span>
+                        <div class="pin-tooltip">
+                            <strong>Mueble Flotante & Espejo LED</strong>
+                            <p>Lavamanos moderno con iluminación LED perimetral.</p>
+                        </div>
+                    </div>
+
+                    <!-- Hotspot 3: Bañera & Sanitarios -->
+                    <div class="hotspot-pin pin-tub" style="top: 65%; left: 16%;" data-title="Bañera Exenta & Sanitarios" data-desc="Bañera exenta de resina acrílica y sanitario de pared con grifería de piso.">
+                        <span class="pin-pulse"></span>
+                        <span class="pin-icon">🛁</span>
+                        <div class="pin-tooltip">
+                            <strong>Bañera Exenta de Lujo</strong>
+                            <p>Acabado ergonómico antideslizante.</p>
+                        </div>
+                    </div>
+
+                    <!-- Hotspot 4: Pisos & Losetas -->
+                    <div class="hotspot-pin pin-floor" style="top: 80%; left: 52%;" data-title="Losetas & Porcelanato 3D" data-desc="Instalación profesional de losetas y pisos rectificados de formato grande con juntas impermeables.">
+                        <span class="pin-pulse"></span>
+                        <span class="pin-icon">🧱</span>
+                        <div class="pin-tooltip">
+                            <strong>Pisos de Loseta Rectificada</strong>
+                            <p>Instalación nivelada por profesionales.</p>
+                        </div>
+                    </div>
+
                     <div class="canvas-3d-hint">
-                        <span>🔄 Arrastra en 360° para explorar el baño 3D</span>
+                        <span>📍 Toca los puntos dorados para explorar la grifería, cristal y losetas</span>
                     </div>
                 </div>
 
                 <!-- Información del Material Seleccionado -->
                 <div class="material-info-bar">
                     <div class="material-details">
-                        <h4 id="matTitle">Porcelanato Mármol Carrara (Pisos y Paredes 3D)</h4>
-                        <p id="matDesc">Losetas de mármol Carrara brillante en 3D con vetas finas para baños completos y espacios modernos.</p>
+                        <h4 id="matTitle">Porcelanato Mármol Carrara (Pisos y Paredes de Lujo)</h4>
+                        <p id="matDesc">Losetas de mármol Carrara brillante en formato grande con vetas finas, ducha en cristal y grifería dorada.</p>
                     </div>
-                    <a id="quoteMaterialBtn" href="https://wa.me/17875130607?text=Hola%20Jackson%20Construction,%20vi%20el%20Modelo%203D%20en%20la%20web%20y%20me%20interesa%20cotizar%20una%20remodelaci%C3%B3n." target="_blank" class="btn btn-gold">
-                        Cotizar esta Remodelación 3D por WhatsApp
+                    <a id="quoteMaterialBtn" href="https://wa.me/17875130607?text=Hola%20Jackson%20Construction,%20vi%20el%20Showroom%20de%20Ba%C3%B1os%20en%20la%20web%20y%20me%20interesa%20cotizar%20un%20ba%C3%B1o%20con%20Porcelanato%20Carrara." target="_blank" class="btn btn-gold">
+                        Cotizar esta Remodelación por WhatsApp
                     </a>
                 </div>
             </div>
