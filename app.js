@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Jackson Construction - WebGL 3D Parallax Volume Shader Engine
-   100% Pure Natural Color - NO Sepia Tint - Real 3D Parallax Motion
+   Jackson Construction - Interactive Web Engine & Sales Showroom
+   100% Commercial Sales Copy - High-End Remodeling Projects in PR
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (priceRangeEl) priceRangeEl.innerText = `${priceText} USD`;
 
         if (sendCalcWhatsappBtn) {
-            const whatsappMessage = encodeURIComponent(`Hola Jackson Construction, calculé mi proyecto en el cotizador de la web:\n- Servicio: ${selectedService}\n- Tamaño: ${selectedSize}\n- Estimado preliminar: ${priceText} USD.\nQuisiera agendar una visita para confirmar el presupuesto.`);
+            const whatsappMessage = encodeURIComponent(`Hola Jackson Construction, calculé mi proyecto en la página web:\n- Servicio: ${selectedService}\n- Tamaño: ${selectedSize}\n- Estimado preliminar: ${priceText} USD.\nQuisiera agendar una visita en mi propiedad para cotizar.`);
             sendCalcWhatsappBtn.setAttribute('onclick', `window.open('https://wa.me/17875130607?text=${whatsappMessage}', '_blank')`);
         }
     }
@@ -124,9 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 4. WEBGL 3D PARALLAX VOLUME ENGINE (Pure Color - No Sepia Tint)
+    // 4. WEBGL 3D SHOWROOM ENGINE (Sales-Focused High-End Copy)
     // ==========================================================================
-    function init3DParallaxPureEngine() {
+    function init3DShowroomSalesEngine() {
         const container3D = document.getElementById('canvas3dContainer');
         if (!container3D || typeof THREE === 'undefined') return;
 
@@ -140,14 +140,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
         camera.position.set(0, 0, 3.4);
 
-        // WebGL Renderer with sRGB Encoding for Pure Colors
+        // WebGL Renderer with sRGB Encoding for Pure Vivid Colors
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(width, height);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.outputEncoding = THREE.sRGBEncoding;
         container3D.appendChild(renderer.domElement);
 
-        // Procedural Smooth Volumetric Depth Map
+        // Procedural Volumetric Depth Map
         function createDepthMap() {
             const canvas = document.createElement('canvas');
             canvas.width = 512;
@@ -167,30 +167,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const depthTexture = createDepthMap();
         const textureLoader = new THREE.TextureLoader();
 
-        // 100% PURE WHITE NEUTRAL LIGHTING (Zero Sepia / Zero Orange Tint)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2); // Pure Crisp White Light
+        // 100% PURE WHITE NEUTRAL LIGHTING (Cero Sepia / Cero Filtros)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.25);
         scene.add(ambientLight);
 
-        // Materials Dictionary with Nanobanana Renders
+        // Sales Copy Dictionary (High-End Remodeling Projects)
         const materialsData = {
             carrara: {
-                title: 'Porcelanato Mármol Carrara (Volumen 3D & Color Puro)',
-                desc: 'Mueve tu dedo o cursor para sentir la profundidad 3D real de las losetas Carrara y la ducha en cristal.',
+                title: 'Remodelación en Porcelanato Mármol Carrara',
+                desc: 'Losetas de mármol Carrara brillante en formato grande, ducha en cristal templado y grifería de lujo para tu hogar.',
                 img: 'assets/bathroom_carrara_3d.jpg'
             },
             slate: {
-                title: 'Loseta Slate Piedra Negra Spa (Volumen 3D & Color Puro)',
-                desc: 'Piedra slate negra 3D con movimiento paralaje en tiempo real y bañera exenta.',
+                title: 'Remodelación Tipo Spa en Slate Piedra Negra',
+                desc: 'Piedra slate negra antideslizante de alta resistencia a la humedad con bañera exenta y accesorios italianos.',
                 img: 'assets/bathroom_slate_3d.jpg'
             },
             wood: {
-                title: 'Vinyl Plank Roble Dorado (Volumen 3D & Color Puro)',
-                desc: 'Piso de vinilo roble cálido con profundidad 3D y espejo circular iluminado.',
+                title: 'Remodelación en Vinyl Plank Roble Dorado 100% Impermeable',
+                desc: 'Textura cálida de madera de roble con lavamanos doble flotante y espejo LED circular.',
                 img: 'assets/bathroom_wood_3d.jpg'
             },
             goldmora: {
-                title: 'Azulejo Calacatta Gold Vetas Doradas (Volumen 3D & Color Puro)',
-                desc: 'Mármol de ultralujo supremo con vetas de oro brillante y movimiento 3D.',
+                title: 'Remodelación de Ultralujo Calacatta Gold',
+                desc: 'Mármol fino de gran formato con vetas de oro brillante para baños residenciales exclusivos.',
                 img: 'assets/bathroom_gold_3d.jpg'
             }
         };
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const planeMesh = new THREE.Mesh(planeGeo, planeMat);
         scene.add(planeMesh);
 
-        // Mouse & Touch Parallax Motion Logic
+        // Mouse & Touch Parallax Motion
         let mouseX = 0, mouseY = 0;
         let targetRotX = 0, targetRotY = 0;
 
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (matDesc) matDesc.innerText = sel.desc;
 
                     if (quoteMaterialBtn) {
-                        const msg = encodeURIComponent(`Hola Jackson Construction, vi el Modelo 3D en la web y me interesa cotizar una remodelación con ${sel.title}.`);
+                        const msg = encodeURIComponent(`Hola Jackson Construction, me interesa cotizar un proyecto de remodelacion de bano con el acabado ${sel.title}.`);
                         quoteMaterialBtn.href = `https://wa.me/17875130607?text=${msg}`;
                     }
                 }
@@ -284,7 +284,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize Pure 3D Parallax Engine
-    init3DParallaxPureEngine();
-    window.addEventListener('load', init3DParallaxPureEngine);
+    // Initialize Sales Engine
+    init3DShowroomSalesEngine();
+    window.addEventListener('load', init3DShowroomSalesEngine);
+
+    // Touch/Click Tooltip logic for Hotspots
+    const hotspots = document.querySelectorAll('.hotspot-pin');
+    hotspots.forEach(pin => {
+        pin.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hotspots.forEach(p => { if (p !== pin) p.classList.remove('active'); });
+            pin.classList.toggle('active');
+        });
+    });
+
+    document.addEventListener('click', () => {
+        hotspots.forEach(pin => pin.classList.remove('active'));
+    });
 });
