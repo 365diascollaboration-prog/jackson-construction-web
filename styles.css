@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Jackson Construction - Photorealistic 3D Architectural Showroom & Glass System
+   Jackson Construction - Dual Contact System (Jackson & Julio) & Glassmorphism
    ========================================================================== */
 
 :root {
@@ -160,12 +160,12 @@ h1, h2, h3, h4 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     padding: 14px 28px;
     border-radius: 12px;
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s var(--apple-ease);
@@ -200,15 +200,27 @@ h1, h2, h3, h4 {
 }
 
 .btn-lg {
-    padding: 16px 36px;
-    font-size: 1.08rem;
+    padding: 16px 28px;
+    font-size: 1rem;
     border-radius: 14px;
 }
 
 .btn-sm {
     padding: 10px 18px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     border-radius: 10px;
+}
+
+.btn-xs {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+}
+
+.btn-nav-sm {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    border-radius: 50px;
 }
 
 .width-full {
@@ -220,7 +232,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Navbar
+   Navbar & Dual Action Buttons
    ========================================================================== */
 
 .navbar {
@@ -257,13 +269,13 @@ h1, h2, h3, h4 {
 
 .nav-links {
     display: flex;
-    gap: 32px;
+    gap: 28px;
 }
 
 .nav-links a {
     color: var(--text-white);
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 600;
     transition: color 0.2s ease;
     opacity: 0.88;
@@ -274,8 +286,13 @@ h1, h2, h3, h4 {
     opacity: 1;
 }
 
+.dual-nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
 /* ==========================================================================
-   Hero Section
+   Hero Section & Dual WhatsApp
    ========================================================================== */
 
 .hero-section {
@@ -349,8 +366,14 @@ h1, h2, h3, h4 {
 
 .hero-buttons {
     display: flex;
+    flex-direction: column;
     gap: 16px;
     margin-bottom: 60px;
+}
+
+.hero-dual-whatsapp {
+    display: flex;
+    gap: 14px;
     flex-wrap: wrap;
 }
 
@@ -391,15 +414,6 @@ h1, h2, h3, h4 {
     justify-content: center;
     color: var(--accent-gold);
     flex-shrink: 0;
-}
-
-.trust-3d-img {
-    width: 20px !important;
-    height: 20px !important;
-    max-width: 20px !important;
-    max-height: 20px !important;
-    object-fit: contain !important;
-    filter: drop-shadow(0 2px 4px rgba(245, 166, 35, 0.5));
 }
 
 .trust-text strong {
@@ -612,12 +626,19 @@ h1, h2, h3, h4 {
     font-weight: bold;
 }
 
-.service-btn {
+.card-dual-actions {
+    display: flex;
+    gap: 8px;
     margin-top: auto;
 }
 
+.card-dual-actions .btn {
+    flex: 1;
+    text-align: center;
+}
+
 /* ==========================================================================
-   PHOTOREALISTIC 3D SHOWROOM & HOTSPOT INSPECTION SYSTEM
+   3D SHOWROOM & HOTSPOT INSPECTION SYSTEM
    ========================================================================== */
 
 .section-3d-viewer {
@@ -695,11 +716,9 @@ h1, h2, h3, h4 {
     margin-bottom: 28px;
 }
 
-.render-3d-img {
+.canvas-3d-container {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: opacity 0.5s var(--apple-ease), transform 0.6s var(--apple-ease);
 }
 
 /* 3D Hotspot Inspection Pins */
@@ -820,8 +839,14 @@ h1, h2, h3, h4 {
     color: var(--text-muted);
 }
 
+.dual-quote-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
 /* ==========================================================================
-   Calculator Section
+   Calculator Section & Dual Action Buttons
    ========================================================================== */
 
 .section-calculator {
@@ -934,6 +959,12 @@ h1, h2, h3, h4 {
     color: var(--text-white);
 }
 
+.dual-calc-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
 /* ==========================================================================
    Portfolio / Before & After Slider
    ========================================================================== */
@@ -1040,7 +1071,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Why Choose Us (Nuestro Compromiso)
+   Why Choose Us & Dual Contact Box (Jackson & Julio)
    ========================================================================== */
 
 .section-why {
@@ -1157,31 +1188,39 @@ h1, h2, h3, h4 {
     margin-bottom: 24px;
 }
 
-.contact-box {
+.dual-contact-boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contact-box-item {
     background: rgba(11, 19, 31, 0.85);
-    padding: 20px;
+    padding: 16px 20px;
     border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: left;
 }
 
 .contact-lbl {
     display: block;
     font-size: 0.8rem;
     color: var(--text-muted);
-    margin-bottom: 6px;
+    margin-bottom: 2px;
 }
 
 .phone-link {
     font-family: var(--font-heading);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 900;
     color: var(--accent-gold);
     text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
 }
 
 /* ==========================================================================
-   Footer & Floating WhatsApp
+   Footer & Dual Floating WhatsApp Menu
    ========================================================================== */
 
 .footer {
@@ -1231,24 +1270,102 @@ h1, h2, h3, h4 {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.whatsapp-float {
+/* Floating WhatsApp Menu */
+.whatsapp-float-wrapper {
     position: fixed;
     bottom: 28px;
     right: 28px;
+    z-index: 999;
+}
+
+.whatsapp-float-btn {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     background-color: #25D366;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-    z-index: 999;
+    cursor: pointer;
     transition: transform 0.3s var(--apple-ease);
 }
 
-.whatsapp-float:hover {
+.whatsapp-float-btn:hover {
     transform: scale(1.1);
+}
+
+.wa-popup-menu {
+    position: absolute;
+    bottom: 74px;
+    right: 0;
+    width: 260px;
+    background: rgba(11, 19, 31, 0.96);
+    border: 1px solid var(--accent-gold);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(16px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s var(--apple-ease);
+}
+
+.whatsapp-float-wrapper:hover .wa-popup-menu,
+.wa-popup-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.wa-popup-title {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.wa-popup-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-white);
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+}
+
+.wa-popup-item:last-child {
+    margin-bottom: 0;
+}
+
+.wa-popup-item:hover {
+    background: rgba(245, 166, 35, 0.2);
+    border-color: var(--accent-gold);
+}
+
+.wa-avatar {
+    font-size: 1.4rem;
+}
+
+.wa-popup-item strong {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--accent-gold);
+}
+
+.wa-popup-item small {
+    font-size: 0.8rem;
+    color: var(--text-muted);
 }
 
 /* ==========================================================================
@@ -1288,5 +1405,10 @@ h1, h2, h3, h4 {
 
     .hero-logo-img {
         height: 85px;
+    }
+
+    .dual-nav-buttons {
+        flex-direction: column;
+        gap: 6px;
     }
 }

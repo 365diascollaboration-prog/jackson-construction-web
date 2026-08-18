@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Jackson Construction - Interactive Web Engine & Sales Showroom
-   100% Commercial Sales Copy - High-End Remodeling Projects in PR
+   Jackson Construction - Dual Contact System Engine (Jackson & Julio)
+   Jackson: 787 513 0607 | Julio: 787 546 6234
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,12 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 2. Interactive Calculator Logic
+    // 2. Interactive Calculator Logic (Dual Contacts: Jackson & Julio)
     // ==========================================================================
     const calcServices = document.getElementsByName('calc_service');
     const calcSizes = document.getElementsByName('calc_size');
     const priceRangeEl = document.getElementById('priceRange');
-    const sendCalcWhatsappBtn = document.getElementById('sendCalcWhatsapp');
+    const sendCalcJacksonBtn = document.getElementById('sendCalcJackson');
+    const sendCalcJulioBtn = document.getElementById('sendCalcJulio');
 
     const pricingMatrix = {
         'Remodelacion de Bano': {
@@ -84,9 +85,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const priceText = pricingMatrix[selectedService]?.[selectedSize] || '$800 - $2,500';
         if (priceRangeEl) priceRangeEl.innerText = `${priceText} USD`;
 
-        if (sendCalcWhatsappBtn) {
-            const whatsappMessage = encodeURIComponent(`Hola Jackson Construction, calculé mi proyecto en la página web:\n- Servicio: ${selectedService}\n- Tamaño: ${selectedSize}\n- Estimado preliminar: ${priceText} USD.\nQuisiera agendar una visita en mi propiedad para cotizar.`);
-            sendCalcWhatsappBtn.setAttribute('onclick', `window.open('https://wa.me/17875130607?text=${whatsappMessage}', '_blank')`);
+        const msgJackson = encodeURIComponent(`Hola Jackson, calculé mi proyecto en la página web:\n- Servicio: ${selectedService}\n- Tamaño: ${selectedSize}\n- Estimado preliminar: ${priceText} USD.\nQuisiera agendar una visita en mi propiedad.`);
+        const msgJulio = encodeURIComponent(`Hola Julio, calculé mi proyecto en la página web:\n- Servicio: ${selectedService}\n- Tamaño: ${selectedSize}\n- Estimado preliminar: ${priceText} USD.\nQuisiera agendar una visita en mi propiedad.`);
+
+        if (sendCalcJacksonBtn) {
+            sendCalcJacksonBtn.setAttribute('onclick', `window.open('https://wa.me/17875130607?text=${msgJackson}', '_blank')`);
+        }
+        if (sendCalcJulioBtn) {
+            sendCalcJulioBtn.setAttribute('onclick', `window.open('https://wa.me/17875466234?text=${msgJulio}', '_blank')`);
         }
     }
 
@@ -124,9 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 4. WEBGL 3D SHOWROOM ENGINE (Sales-Focused High-End Copy)
+    // 4. WEBGL 3D SHOWROOM ENGINE (Dual Contacts: Jackson & Julio)
     // ==========================================================================
-    function init3DShowroomSalesEngine() {
+    function init3DShowroomEngine() {
         const container3D = document.getElementById('canvas3dContainer');
         if (!container3D || typeof THREE === 'undefined') return;
 
@@ -167,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const depthTexture = createDepthMap();
         const textureLoader = new THREE.TextureLoader();
 
-        // 100% PURE WHITE NEUTRAL LIGHTING (Cero Sepia / Cero Filtros)
+        // 100% PURE WHITE NEUTRAL LIGHTING (Zero Sepia / Zero Filtros)
         const ambientLight = new THREE.AmbientLight(0xffffff, 1.25);
         scene.add(ambientLight);
 
@@ -231,7 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const matBtns = document.querySelectorAll('.mat-btn');
         const matTitle = document.getElementById('matTitle');
         const matDesc = document.getElementById('matDesc');
-        const quoteMaterialBtn = document.getElementById('quoteMaterialBtn');
+        const quoteJacksonBtn = document.getElementById('quoteJacksonBtn');
+        const quoteJulioBtn = document.getElementById('quoteJulioBtn');
 
         matBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -250,9 +257,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (matTitle) matTitle.innerText = sel.title;
                     if (matDesc) matDesc.innerText = sel.desc;
 
-                    if (quoteMaterialBtn) {
-                        const msg = encodeURIComponent(`Hola Jackson Construction, me interesa cotizar un proyecto de remodelacion de bano con el acabado ${sel.title}.`);
-                        quoteMaterialBtn.href = `https://wa.me/17875130607?text=${msg}`;
+                    if (quoteJacksonBtn) {
+                        const msgJ = encodeURIComponent(`Hola Jackson, me interesa cotizar un proyecto de remodelacion de bano con el acabado ${sel.title}.`);
+                        quoteJacksonBtn.href = `https://wa.me/17875130607?text=${msgJ}`;
+                    }
+                    if (quoteJulioBtn) {
+                        const msgJu = encodeURIComponent(`Hola Julio, me interesa cotizar un proyecto de remodelacion de bano con el acabado ${sel.title}.`);
+                        quoteJulioBtn.href = `https://wa.me/17875466234?text=${msgJu}`;
                     }
                 }
             });
@@ -284,9 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize Sales Engine
-    init3DShowroomSalesEngine();
-    window.addEventListener('load', init3DShowroomSalesEngine);
+    // Initialize Showroom Engine
+    init3DShowroomEngine();
+    window.addEventListener('load', init3DShowroomEngine);
 
     // Touch/Click Tooltip logic for Hotspots
     const hotspots = document.querySelectorAll('.hotspot-pin');
@@ -301,4 +312,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', () => {
         hotspots.forEach(pin => pin.classList.remove('active'));
     });
+
+    // Floating WhatsApp Popup toggle
+    const waFloatBtn = document.getElementById('waFloatBtn');
+    const waPopupMenu = document.getElementById('waPopupMenu');
+    if (waFloatBtn && waPopupMenu) {
+        waFloatBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            waPopupMenu.classList.toggle('show');
+        });
+        document.addEventListener('click', () => {
+            waPopupMenu.classList.remove('show');
+        });
+    }
 });
