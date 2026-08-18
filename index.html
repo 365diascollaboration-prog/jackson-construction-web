@@ -11,9 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Three.js 3D Engine & OrbitControls -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- Three.js 3D WebGL Engine & OrbitControls -->
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
 
@@ -26,7 +26,7 @@
             
             <nav class="nav-links">
                 <a href="#servicios">Servicios</a>
-                <a href="#viewer3d">Visor 3D</a>
+                <a href="#viewer3d">Modelo 3D Baños</a>
                 <a href="#cotizador">Cotizador Exprés</a>
                 <a href="#proyectos">Proyectos</a>
                 <a href="#nosotros">Por Qué Elegirnos</a>
@@ -224,29 +224,29 @@
         </div>
     </section>
 
-    <!-- SECCIÓN 3D INTERACTIVA THREE.JS (VISOR DE MATERIALES 3D) -->
+    <!-- SECCIÓN 3D INTERACTIVA THREE.JS (MODELO ARQUITECTÓNICO DE BAÑO COMPLETO 3D) -->
     <section class="section-3d-viewer" id="viewer3d">
         <div class="container">
             <div class="section-header center">
-                <span class="section-tag gold">TECNOLOGÍA INTERACTIVA 3D</span>
-                <h2>Visor 3D Interactivo de Materiales</h2>
-                <p>Arrastra con el dedo o mouse para rotar la pieza 3D en tiempo real y selecciona el acabado de tu preferencia para tu proyecto.</p>
+                <span class="section-tag gold">ARQUITECTURA INTERACTIVA 3D</span>
+                <h2>Modelo 3D de Baño & Remodelación</h2>
+                <p>Arrastra con el dedo o mouse para rotar en 3D el baño completo: <strong>Sanitario (Toilet), Ducha con Puertas de Cristal, Ventana y Pisos</strong>.</p>
             </div>
 
             <div class="viewer-3d-card">
                 <!-- Selector de Materiales 3D -->
                 <div class="material-controls">
                     <button class="mat-btn active" data-mat="carrara">
-                        <span class="mat-dot carrara-dot"></span> Porcelanato Mármol Carrara
+                        <span class="mat-dot carrara-dot"></span> Porcelanato Carrara
                     </button>
                     <button class="mat-btn" data-mat="slate">
                         <span class="mat-dot slate-dot"></span> Slate Piedra Negra
                     </button>
                     <button class="mat-btn" data-mat="wood">
-                        <span class="mat-dot wood-dot"></span> Wood Plank Roble Dorado
+                        <span class="mat-dot wood-dot"></span> Wood Plank Roble
                     </button>
                     <button class="mat-btn" data-mat="goldmora">
-                        <span class="mat-dot goldmora-dot"></span> Azulejo Calacatta Gold
+                        <span class="mat-dot goldmora-dot"></span> Calacatta Gold
                     </button>
                 </div>
 
@@ -254,18 +254,18 @@
                 <div class="canvas-3d-wrapper" id="canvas3dWrapper">
                     <div id="canvas3dContainer" class="canvas-3d-container"></div>
                     <div class="canvas-3d-hint">
-                        <span>🔄 Arrastra para rotar en 3D</span>
+                        <span>🔄 Arrastra en 360° para explorar el baño 3D</span>
                     </div>
                 </div>
 
                 <!-- Información del Material Seleccionado -->
                 <div class="material-info-bar">
                     <div class="material-details">
-                        <h4 id="matTitle">Porcelanato Mármol Carrara Blanqueado</h4>
-                        <p id="matDesc">Ideal para baños de lujo, pisos principales y paredes de ducha. Acabado brillante con vetas grises finas.</p>
+                        <h4 id="matTitle">Porcelanato Mármol Carrara (Pisos y Paredes 3D)</h4>
+                        <p id="matDesc">Losetas de mármol Carrara brillante en 3D con vetas finas para baños completos y espacios modernos.</p>
                     </div>
-                    <a id="quoteMaterialBtn" href="https://wa.me/17875130607?text=Hola%20Jackson%20Construction,%20me%20interesa%20cotizar%20un%20proyecto%20con%20Porcelanato%20M%C3%A1rmol%20Carrara." target="_blank" class="btn btn-gold">
-                        Cotizar este Material por WhatsApp
+                    <a id="quoteMaterialBtn" href="https://wa.me/17875130607?text=Hola%20Jackson%20Construction,%20vi%20el%20Modelo%203D%20en%20la%20web%20y%20me%20interesa%20cotizar%20una%20remodelaci%C3%B3n." target="_blank" class="btn btn-gold">
+                        Cotizar esta Remodelación 3D por WhatsApp
                     </a>
                 </div>
             </div>
