@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Three.js 3D WebGL Engine & OrbitControls -->
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
 
@@ -22,7 +26,7 @@
             
             <nav class="nav-links">
                 <a href="#servicios">Servicios</a>
-                <a href="#viewer3d">Modelo 3D Baños</a>
+                <a href="#viewer3d">Recorrido 3D</a>
                 <a href="#cotizador">Cotizador Exprés</a>
                 <a href="#proyectos">Proyectos</a>
                 <a href="#nosotros">Por Qué Elegirnos</a>
@@ -220,13 +224,13 @@
         </div>
     </section>
 
-    <!-- SECCIÓN FOTORREALISTA INTERACTIVA DE BAÑOS & REMODELACIÓN 3D -->
+    <!-- SECCIÓN FUSIÓN 3D THREE.JS (RECORRIDO CINEMÁTICO & PROFUNDIDAD WEBGL) -->
     <section class="section-3d-viewer" id="viewer3d">
         <div class="container">
             <div class="section-header center">
-                <span class="section-tag gold">SHOWROOM INTERACTIVO DE ARQUITECTURA</span>
-                <h2>Configurador Interactivo de Baños de Lujo</h2>
-                <p>Haz clic en los estilos de losetas y toca los <strong>Puntos de Inspección 3D 📍</strong> (Ducha de Cristal, Sanitario, Mueble & Espejo LED) para explorar cada detalle.</p>
+                <span class="section-tag gold">TECNOLOGÍA FUSIÓN 3D (IDEA 1 + 3)</span>
+                <h2>Recorrido 3D & Profundidad de Baños</h2>
+                <p>Mueve tu dedo o mouse para sentir la <strong>Profundidad 3D Real</strong> y toca los puntos dorados 📍 para que la cámara <strong>vuele en 3D</strong> hacia cada rincón.</p>
             </div>
 
             <div class="viewer-3d-card">
@@ -246,63 +250,63 @@
                     </button>
                 </div>
 
-                <!-- Canvas de Render Fotorrealista con Puntos de Inspección 3D -->
+                <!-- Canvas de Render 3D WebGL con Vuelo de Cámara & Hotspots -->
                 <div class="canvas-3d-wrapper" id="canvas3dWrapper">
-                    <img id="render3dImage" src="assets/bathroom_carrara_3d.jpg" alt="Render 3D Baño de Lujo Carrara" class="render-3d-img">
+                    <div id="canvas3dContainer" class="canvas-3d-container"></div>
 
-                    <!-- Hotspot 1: Ducha de Cristal -->
-                    <div class="hotspot-pin pin-shower" style="top: 35%; right: 22%;" data-title="Ducha en Cristal Templado" data-desc="Cabina en cristal templado sin marcos con grifería italiana en acabado dorado resistente a la humedad.">
+                    <!-- Hotspot 1: Ducha de Cristal (Vuelo de Cámara a Shower) -->
+                    <div class="hotspot-pin pin-shower" style="top: 35%; right: 22%;" data-target="shower">
                         <span class="pin-pulse"></span>
                         <span class="pin-icon">🚿</span>
                         <div class="pin-tooltip">
-                            <strong>Ducha en Cristal Templado</strong>
-                            <p>Cristal sin marcos de 10mm con grifería de lujo.</p>
+                            <strong>✈️ Vuelo 3D: Ducha de Cristal</strong>
+                            <p>Toca para hacer zoom cinemático 3D a la cabina de cristal.</p>
                         </div>
                     </div>
 
-                    <!-- Hotspot 2: Mueble & Espejo LED -->
-                    <div class="hotspot-pin pin-vanity" style="top: 42%; left: 48%;" data-title="Mueble Flotante & Espejo LED" data-desc="Mueble suspendido con lavamanos de vasija de cerámica y espejo retroiluminado LED cálido.">
+                    <!-- Hotspot 2: Mueble & Espejo LED (Vuelo de Cámara a Vanity) -->
+                    <div class="hotspot-pin pin-vanity" style="top: 42%; left: 48%;" data-target="vanity">
                         <span class="pin-pulse"></span>
                         <span class="pin-icon">🪞</span>
                         <div class="pin-tooltip">
-                            <strong>Mueble Flotante & Espejo LED</strong>
-                            <p>Lavamanos moderno con iluminación LED perimetral.</p>
+                            <strong>✈️ Vuelo 3D: Espejo & Mueble LED</strong>
+                            <p>Toca para enfocar en 3D el mueble suspendido.</p>
                         </div>
                     </div>
 
-                    <!-- Hotspot 3: Bañera & Sanitarios -->
-                    <div class="hotspot-pin pin-tub" style="top: 65%; left: 16%;" data-title="Bañera Exenta & Sanitarios" data-desc="Bañera exenta de resina acrílica y sanitario de pared con grifería de piso.">
+                    <!-- Hotspot 3: Bañera Exenta (Vuelo de Cámara a Tub) -->
+                    <div class="hotspot-pin pin-tub" style="top: 65%; left: 16%;" data-target="tub">
                         <span class="pin-pulse"></span>
                         <span class="pin-icon">🛁</span>
                         <div class="pin-tooltip">
-                            <strong>Bañera Exenta de Lujo</strong>
-                            <p>Acabado ergonómico antideslizante.</p>
+                            <strong>✈️ Vuelo 3D: Bañera de Lujo</strong>
+                            <p>Toca para acercar la cámara a la tina de resina.</p>
                         </div>
                     </div>
 
-                    <!-- Hotspot 4: Pisos & Losetas -->
-                    <div class="hotspot-pin pin-floor" style="top: 80%; left: 52%;" data-title="Losetas & Porcelanato 3D" data-desc="Instalación profesional de losetas y pisos rectificados de formato grande con juntas impermeables.">
+                    <!-- Hotspot 4: Pisos & Losetas (Vuelo de Cámara a Floor) -->
+                    <div class="hotspot-pin pin-floor" style="top: 80%; left: 52%;" data-target="floor">
                         <span class="pin-pulse"></span>
                         <span class="pin-icon">🧱</span>
                         <div class="pin-tooltip">
-                            <strong>Pisos de Loseta Rectificada</strong>
-                            <p>Instalación nivelada por profesionales.</p>
+                            <strong>✈️ Vuelo 3D: Pisos de Loseta</strong>
+                            <p>Toca para inclinar la cámara e inspeccionar losetas.</p>
                         </div>
                     </div>
 
                     <div class="canvas-3d-hint">
-                        <span>📍 Toca los puntos dorados para explorar la grifería, cristal y losetas</span>
+                        <span>✨ Mueve tu dedo para la Profundidad 3D | Toca 📍 para volar en 3D</span>
                     </div>
                 </div>
 
                 <!-- Información del Material Seleccionado -->
                 <div class="material-info-bar">
                     <div class="material-details">
-                        <h4 id="matTitle">Porcelanato Mármol Carrara (Pisos y Paredes de Lujo)</h4>
-                        <p id="matDesc">Losetas de mármol Carrara brillante en formato grande con vetas finas, ducha en cristal y grifería dorada.</p>
+                        <h4 id="matTitle">Porcelanato Mármol Carrara (Recorrido 3D & Profundidad)</h4>
+                        <p id="matDesc">Navega en 3D por la remodelación completa: ducha en cristal templado, losetas de mármol Carrara y mueble flotante con iluminación LED.</p>
                     </div>
-                    <a id="quoteMaterialBtn" href="https://wa.me/17875130607?text=Hola%20Jackson%20Construction,%20vi%20el%20Showroom%20de%20Ba%C3%B1os%20en%20la%20web%20y%20me%20interesa%20cotizar%20un%20ba%C3%B1o%20con%20Porcelanato%20Carrara." target="_blank" class="btn btn-gold">
-                        Cotizar esta Remodelación por WhatsApp
+                    <a id="quoteMaterialBtn" href="https://wa.me/17875130607?text=Hola%20Jackson%20Construction,%20vi%20el%20Recorrido%203D%20en%20la%20web%20y%20me%20interesa%20cotizar%20una%20remodelaci%C3%B3n." target="_blank" class="btn btn-gold">
+                        Cotizar este Proyecto 3D por WhatsApp
                     </a>
                 </div>
             </div>
