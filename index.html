@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Three.js 3D WebGL Engine -->
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
 </head>
 <body>
 
@@ -22,7 +25,7 @@
             
             <nav class="nav-links">
                 <a href="#servicios">Servicios</a>
-                <a href="#viewer3d">Showroom 4K Baños</a>
+                <a href="#viewer3d">Modelo 3D Baños</a>
                 <a href="#cotizador">Cotizador Exprés</a>
                 <a href="#proyectos">Proyectos</a>
                 <a href="#nosotros">Por Qué Elegirnos</a>
@@ -220,17 +223,17 @@
         </div>
     </section>
 
-    <!-- SECCIÓN SHOWROOM 4K FOTORREALISTA EN COLOR PURO (SIN SEPIA / SIN 3D DEFORMADO) -->
+    <!-- SECCIÓN MOTOR 3D PARALAJE (IMÁGENES ARTE 3D EN COLOR PURO / CERO SEPIA) -->
     <section class="section-3d-viewer" id="viewer3d">
         <div class="container">
             <div class="section-header center">
-                <span class="section-tag gold">SHOWROOM DE LUJO 4K</span>
-                <h2>Catálogo Fotorrealista de Remodelación de Baños</h2>
-                <p>Navega entre los acabados de alta gama en su <strong>color natural 4K ultra nítido</strong> (sin filtros ni sepia) y explora los detalles de grifería y losetas.</p>
+                <span class="section-tag gold">ARQUITECTURA INTERACTIVA 3D</span>
+                <h2>Visualizador 3D de Baños en Color Puro</h2>
+                <p>Mueve tu dedo o cursor para sentir la <strong>Profundidad 3D Real</strong> manteniendo los colores naturales nítidos 4K.</p>
             </div>
 
             <div class="viewer-3d-card">
-                <!-- Selector de Acabados Fotorrealistas 4K -->
+                <!-- Selector de Materiales 3D -->
                 <div class="material-controls">
                     <button class="mat-btn active" data-mat="carrara">
                         <span class="mat-dot carrara-dot"></span> Porcelanato Carrara
@@ -246,9 +249,9 @@
                     </button>
                 </div>
 
-                <!-- Canvas de Imagen Fotorrealista 4K en Color Puro -->
+                <!-- Canvas 3D WebGL con Luz Blanca Neutra 100% Pura -->
                 <div class="canvas-3d-wrapper" id="canvas3dWrapper">
-                    <img id="render3dImage" src="assets/bathroom_carrara_3d.jpg" alt="Remodelación Baño Porcelanato Carrara 4K" class="render-3d-img pure-color">
+                    <div id="canvas3dContainer" class="canvas-3d-container"></div>
 
                     <!-- Hotspot 1: Ducha de Cristal Templado -->
                     <div class="hotspot-pin pin-shower" style="top: 35%; right: 22%;">
@@ -291,18 +294,18 @@
                     </div>
 
                     <div class="canvas-3d-hint">
-                        <span>✨ Toca los puntos dorados 📍 para inspeccionar acabados</span>
+                        <span>✨ Mueve tu dedo para la Profundidad 3D | Toca 📍 para detalles</span>
                     </div>
                 </div>
 
                 <!-- Información del Material Seleccionado -->
                 <div class="material-info-bar">
                     <div class="material-details">
-                        <h4 id="matTitle">Porcelanato Mármol Carrara (Color Puro 4K)</h4>
-                        <p id="matDesc">Losetas de mármol Carrara brillante en formato grande con vetas finas, ducha en cristal y grifería dorada.</p>
+                        <h4 id="matTitle">Porcelanato Mármol Carrara (Volumen 3D & Color Puro)</h4>
+                        <p id="matDesc">Mueve tu dedo o cursor para sentir la profundidad 3D real de las losetas Carrara y la ducha en cristal.</p>
                     </div>
-                    <a id="quoteMaterialBtn" href="https://wa.me/17875130607?text=Hola%20Jackson%20Construction,%20vi%20el%20Showroom%204K%20en%20la%20web%20y%20me%20interesa%20cotizar%20un%20ba%C3%B1o%20con%20Porcelanato%20Carrara." target="_blank" class="btn btn-gold">
-                        Cotizar este Acabado por WhatsApp
+                    <a id="quoteMaterialBtn" href="https://wa.me/17875130607?text=Hola%20Jackson%20Construction,%20vi%20el%20Modelo%203D%20en%20la%20web%20y%20me%20interesa%20cotizar%20una%20remodelaci%C3%B3n." target="_blank" class="btn btn-gold">
+                        Cotizar este Proyecto 3D por WhatsApp
                     </a>
                 </div>
             </div>

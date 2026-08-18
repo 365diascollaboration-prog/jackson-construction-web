@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Jackson Construction - 4K Photorealistic Showroom Engine (Pure Natural Color)
+   Jackson Construction - WebGL 3D Parallax Volume Shader Engine
+   100% Pure Natural Color - NO Sepia Tint - Real 3D Parallax Motion
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -123,79 +124,167 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 4. 4K PHOTOREALISTIC SHOWROOM ENGINE (Pure Color - No Sepia Tint)
+    // 4. WEBGL 3D PARALLAX VOLUME ENGINE (Pure Color - No Sepia Tint)
     // ==========================================================================
-    const render3dImage = document.getElementById('render3dImage');
-    const matBtns = document.querySelectorAll('.mat-btn');
-    const matTitle = document.getElementById('matTitle');
-    const matDesc = document.getElementById('matDesc');
-    const quoteMaterialBtn = document.getElementById('quoteMaterialBtn');
+    function init3DParallaxPureEngine() {
+        const container3D = document.getElementById('canvas3dContainer');
+        if (!container3D || typeof THREE === 'undefined') return;
 
-    const showroomData = {
-        carrara: {
-            title: 'Porcelanato Mármol Carrara (Color Puro 4K)',
-            desc: 'Losetas de mármol Carrara brillante en formato grande con vetas finas, ducha en cristal y grifería dorada.',
-            img: 'assets/bathroom_carrara_3d.jpg'
-        },
-        slate: {
-            title: 'Loseta Slate Piedra Negra Tropical Spa (Color Puro 4K)',
-            desc: 'Piedra slate texturizada antideslizante con iluminación LED empotrada, cabina de cristal y bañera exenta.',
-            img: 'assets/bathroom_slate_3d.jpg'
-        },
-        wood: {
-            title: 'Vinyl Plank Roble Dorado Impermeable (Color Puro 4K)',
-            desc: 'Piso de vinilo roble cálido resistente al agua 100%, lavamanos doble suspendido y ducha de cristal.',
-            img: 'assets/bathroom_wood_3d.jpg'
-        },
-        goldmora: {
-            title: 'Azulejo Calacatta Gold Vetas Doradas (Color Puro 4K)',
-            desc: 'Mármol de ultralujo supremo con vetas de oro brillante para baños master residenciales de alto valor.',
-            img: 'assets/bathroom_gold_3d.jpg'
+        container3D.innerHTML = '';
+
+        const width = container3D.clientWidth || 800;
+        const height = container3D.clientHeight || 520;
+
+        // Scene & Camera
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+        camera.position.set(0, 0, 3.4);
+
+        // WebGL Renderer with sRGB Encoding for Pure Colors
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        container3D.appendChild(renderer.domElement);
+
+        // Procedural Smooth Volumetric Depth Map
+        function createDepthMap() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+
+            const grad = ctx.createRadialGradient(256, 256, 30, 256, 256, 320);
+            grad.addColorStop(0, '#FFFFFF');
+            grad.addColorStop(0.6, '#666666');
+            grad.addColorStop(1, '#000000');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 512, 512);
+
+            return new THREE.CanvasTexture(canvas);
         }
-    };
 
-    if (render3dImage && matBtns.length > 0) {
+        const depthTexture = createDepthMap();
+        const textureLoader = new THREE.TextureLoader();
+
+        // 100% PURE WHITE NEUTRAL LIGHTING (Zero Sepia / Zero Orange Tint)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2); // Pure Crisp White Light
+        scene.add(ambientLight);
+
+        // Materials Dictionary with Nanobanana Renders
+        const materialsData = {
+            carrara: {
+                title: 'Porcelanato Mármol Carrara (Volumen 3D & Color Puro)',
+                desc: 'Mueve tu dedo o cursor para sentir la profundidad 3D real de las losetas Carrara y la ducha en cristal.',
+                img: 'assets/bathroom_carrara_3d.jpg'
+            },
+            slate: {
+                title: 'Loseta Slate Piedra Negra Spa (Volumen 3D & Color Puro)',
+                desc: 'Piedra slate negra 3D con movimiento paralaje en tiempo real y bañera exenta.',
+                img: 'assets/bathroom_slate_3d.jpg'
+            },
+            wood: {
+                title: 'Vinyl Plank Roble Dorado (Volumen 3D & Color Puro)',
+                desc: 'Piso de vinilo roble cálido con profundidad 3D y espejo circular iluminado.',
+                img: 'assets/bathroom_wood_3d.jpg'
+            },
+            goldmora: {
+                title: 'Azulejo Calacatta Gold Vetas Doradas (Volumen 3D & Color Puro)',
+                desc: 'Mármol de ultralujo supremo con vetas de oro brillante y movimiento 3D.',
+                img: 'assets/bathroom_gold_3d.jpg'
+            }
+        };
+
+        let activeKey = 'carrara';
+        const planeGeo = new THREE.PlaneGeometry(5.4, 3.1, 64, 64);
+
+        const planeMat = new THREE.MeshStandardMaterial({
+            map: textureLoader.load(materialsData[activeKey].img),
+            displacementMap: depthTexture,
+            displacementScale: 0.22,
+            roughness: 0.2,
+            metalness: 0.05
+        });
+
+        const planeMesh = new THREE.Mesh(planeGeo, planeMat);
+        scene.add(planeMesh);
+
+        // Mouse & Touch Parallax Motion Logic
+        let mouseX = 0, mouseY = 0;
+        let targetRotX = 0, targetRotY = 0;
+
+        container3D.addEventListener('mousemove', (e) => {
+            const rect = container3D.getBoundingClientRect();
+            mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            mouseY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+        });
+
+        container3D.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                const rect = container3D.getBoundingClientRect();
+                mouseX = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+                mouseY = -(((e.touches[0].clientY - rect.top) / rect.height) * 2 - 1);
+            }
+        });
+
+        // Material Switcher Event Listeners
+        const matBtns = document.querySelectorAll('.mat-btn');
+        const matTitle = document.getElementById('matTitle');
+        const matDesc = document.getElementById('matDesc');
+        const quoteMaterialBtn = document.getElementById('quoteMaterialBtn');
+
         matBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 matBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                const matKey = btn.getAttribute('data-mat');
-                const selectedMat = showroomData[matKey];
+                activeKey = btn.getAttribute('data-mat');
+                const sel = materialsData[activeKey];
 
-                if (selectedMat) {
-                    render3dImage.style.opacity = '0.2';
-                    render3dImage.style.transform = 'scale(1.02)';
+                if (sel) {
+                    textureLoader.load(sel.img, (newTex) => {
+                        planeMat.map = newTex;
+                        planeMat.needsUpdate = true;
+                    });
 
-                    setTimeout(() => {
-                        render3dImage.src = selectedMat.img;
-                        render3dImage.style.opacity = '1';
-                        render3dImage.style.transform = 'scale(1)';
+                    if (matTitle) matTitle.innerText = sel.title;
+                    if (matDesc) matDesc.innerText = sel.desc;
 
-                        if (matTitle) matTitle.innerText = selectedMat.title;
-                        if (matDesc) matDesc.innerText = selectedMat.desc;
-
-                        if (quoteMaterialBtn) {
-                            const msg = encodeURIComponent(`Hola Jackson Construction, vi el Showroom 4K en la web y me interesa cotizar una remodelación con ${selectedMat.title}.`);
-                            quoteMaterialBtn.href = `https://wa.me/17875130607?text=${msg}`;
-                        }
-                    }, 180);
+                    if (quoteMaterialBtn) {
+                        const msg = encodeURIComponent(`Hola Jackson Construction, vi el Modelo 3D en la web y me interesa cotizar una remodelación con ${sel.title}.`);
+                        quoteMaterialBtn.href = `https://wa.me/17875130607?text=${msg}`;
+                    }
                 }
             });
         });
+
+        // 60FPS Parallax Motion Loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            targetRotX = mouseY * 0.16;
+            targetRotY = mouseX * 0.22;
+
+            planeMesh.rotation.x += (targetRotX - planeMesh.rotation.x) * 0.08;
+            planeMesh.rotation.y += (targetRotY - planeMesh.rotation.y) * 0.08;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Window Resize
+        window.addEventListener('resize', () => {
+            if (container3D) {
+                const w = container3D.clientWidth;
+                const h = container3D.clientHeight;
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+                renderer.setSize(w, h);
+            }
+        });
     }
 
-    // Touch/Click Tooltip logic for Hotspots
-    const hotspots = document.querySelectorAll('.hotspot-pin');
-    hotspots.forEach(pin => {
-        pin.addEventListener('click', (e) => {
-            e.stopPropagation();
-            hotspots.forEach(p => { if (p !== pin) p.classList.remove('active'); });
-            pin.classList.toggle('active');
-        });
-    });
-
-    document.addEventListener('click', () => {
-        hotspots.forEach(pin => pin.classList.remove('active'));
-    });
+    // Initialize Pure 3D Parallax Engine
+    init3DParallaxPureEngine();
+    window.addEventListener('load', init3DParallaxPureEngine);
 });
