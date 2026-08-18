@@ -1,54 +1,31 @@
 /* ==========================================================================
-   Jackson Construction - Interactive Web Logic (Filtered Photos & Tabs Edition)
+   Jackson Construction - Interactive Web Logic & Three.js 3D Material Engine
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
 
-    // ----------------------------------------------------------------------
-    // 0. Force Video Autoplay Fallback for Modern Browsers
-    // ----------------------------------------------------------------------
-    const desktopVideo = document.getElementById('heroVideoDesktop');
-    const mobileVideo = document.getElementById('heroVideoMobile');
-
-    function playVideosSafely() {
-        if (desktopVideo) {
-            desktopVideo.muted = true;
-            desktopVideo.play().catch(err => console.log("Desktop video autoplay fallback:", err));
-        }
-        if (mobileVideo) {
-            mobileVideo.muted = true;
-            mobileVideo.play().catch(err => console.log("Mobile video autoplay fallback:", err));
-        }
-    }
-    
-    playVideosSafely();
-    document.body.addEventListener('click', playVideosSafely, { once: true });
-    document.body.addEventListener('touchstart', playVideosSafely, { once: true });
-
-    // ----------------------------------------------------------------------
-    // 1. Services Category Filter Tabs Logic (Dynamic Photo Display)
-    // ----------------------------------------------------------------------
+    // ==========================================================================
+    // 1. Service Category Filter Tabs
+    // ==========================================================================
     const filterBtns = document.querySelectorAll('.filter-btn');
     const serviceCards = document.querySelectorAll('.service-card');
     const servicesGrid = document.getElementById('servicesGrid');
 
     filterBtns.forEach(btn => {
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', () => {
             filterBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
+            btn.classList.add('active');
 
-            const filterValue = this.getAttribute('data-filter');
+            const filterValue = btn.getAttribute('data-filter');
 
-            // Si se selecciona un filtro específico, activamos la clase .filtered para desplegar la foto elegante
             if (filterValue === 'all') {
-                if (servicesGrid) servicesGrid.classList.remove('filtered');
+                servicesGrid.classList.remove('filtered');
             } else {
-                if (servicesGrid) servicesGrid.classList.add('filtered');
+                servicesGrid.classList.add('filtered');
             }
 
             serviceCards.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
-
                 if (filterValue === 'all' || cardCategory === filterValue) {
                     card.classList.remove('hide');
                 } else {
@@ -58,140 +35,292 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ----------------------------------------------------------------------
-    // 2. Calculator Logic
-    // ----------------------------------------------------------------------
-    const calcInputs = document.querySelectorAll('input[name="calc_service"], input[name="calc_size"]');
-    const priceRangeElement = document.getElementById('priceRange');
-    const resultDetailsElement = document.getElementById('resultDetails');
+    // ==========================================================================
+    // 2. Interactive Calculator Logic
+    // ==========================================================================
+    const calcServices = document.getElementsByName('calc_service');
+    const calcSizes = document.getElementsByName('calc_size');
+    const priceRangeEl = document.getElementById('priceRange');
+    const resultDetailsEl = document.getElementById('resultDetails');
     const sendCalcWhatsappBtn = document.getElementById('sendCalcWhatsapp');
 
     const pricingMatrix = {
         'Remodelacion de Bano': {
-            'Pequeno (1 Habitacion o Bano)': { range: '$1,200 USD - $2,800 USD', details: 'Incluye remoción de losas viejas, impermeabilización y losas nuevas.' },
-            'Mediano (Area de 2 a 3 espacios)': { range: '$2,800 USD - $5,500 USD', details: 'Incluye azulejos de baño principal, ducha amplia y accesorios.' },
-            'Grande (Propiedad o Casa Completa)': { range: '$5,500 USD - $9,500 USD', details: 'Remodelación de múltiples baños con acabados de alta gama.' }
+            'Pequeno (1 Habitacion o Bano)': '$1,200 - $2,800',
+            'Mediano (Area de 2 a 3 espacios)': '$2,800 - $5,500',
+            'Grande (Propiedad o Casa Completa)': '$5,500 - $9,500+'
         },
         'Instalacion de Pisos': {
-            'Pequeno (1 Habitacion o Bano)': { range: '$600 USD - $1,500 USD', details: 'Instalación de losas o Vinyl Plank con nivelación.' },
-            'Mediano (Area de 2 a 3 espacios)': { range: '$1,800 USD - $3,800 USD', details: 'Pisos para sala, comedor y cocina.' },
-            'Grande (Propiedad o Casa Completa)': { range: '$4,200 USD - $8,500 USD', details: 'Instalación completa en toda la propiedad.' }
+            'Pequeno (1 Habitacion o Bano)': '$800 - $1,800',
+            'Mediano (Area de 2 a 3 espacios)': '$1,800 - $4,200',
+            'Grande (Propiedad o Casa Completa)': '$4,200 - $8,500+'
         },
         'Demolicion y Escombros': {
-            'Pequeno (1 Habitacion o Bano)': { range: '$400 USD - $900 USD', details: 'Demolición menor y desalojo en camión.' },
-            'Mediano (Area de 2 a 3 espacios)': { range: '$900 USD - $1,800 USD', details: 'Demolición de paredes, estructuras y bote de escombros.' },
-            'Grande (Propiedad o Casa Completa)': { range: '$2,000 USD - $4,500 USD', details: 'Limpieza total de terreno y demolición estructural.' }
+            'Pequeno (1 Habitacion o Bano)': '$500 - $1,200',
+            'Mediano (Area de 2 a 3 espacios)': '$1,200 - $2,900',
+            'Grande (Propiedad o Casa Completa)': '$2,900 - $6,000+'
         },
         'Pintura General': {
-            'Pequeno (1 Habitacion o Bano)': { range: '$450 USD - $950 USD', details: 'Preparación de paredes y pintura lavable.' },
-            'Mediano (Area de 2 a 3 espacios)': { range: '$1,200 USD - $2,600 USD', details: 'Pintura interior completa con sellado.' },
-            'Grande (Propiedad o Casa Completa)': { range: '$2,800 USD - $6,000 USD', details: 'Pintura exterior e interior resistente al clima tropical.' }
+            'Pequeno (1 Habitacion o Bano)': '$600 - $1,400',
+            'Mediano (Area de 2 a 3 espacios)': '$1,400 - $3,200',
+            'Grande (Propiedad o Casa Completa)': '$3,200 - $6,500+'
         },
         'Construccion General': {
-            'Pequeno (1 Habitacion o Bano)': { range: '$1,500 USD - $3,500 USD', details: 'Construcción de pared o ampliación pequeña.' },
-            'Mediano (Area de 2 a 3 espacios)': { range: '$3,500 USD - $8,000 USD', details: 'Estructura o ampliación de espacios.' },
-            'Grande (Propiedad o Casa Completa)': { range: '$8,000 USD - $20,000+ USD', details: 'Proyecto de construcción o remodelación mayor.' }
+            'Pequeno (1 Habitacion o Bano)': '$1,500 - $4,000',
+            'Mediano (Area de 2 a 3 espacios)': '$4,000 - $9,500',
+            'Grande (Propiedad o Casa Completa)': '$9,500 - $25,000+'
         }
     };
 
-    function updateCalculator() {
-        const selectedService = document.querySelector('input[name="calc_service"]:checked').value;
-        const selectedSize = document.querySelector('input[name="calc_size"]:checked').value;
+    function updateCalculatorPrice() {
+        let selectedService = 'Remodelacion de Bano';
+        let selectedSize = 'Pequeno (1 Habitacion o Bano)';
 
-        if (pricingMatrix[selectedService] && pricingMatrix[selectedService][selectedSize]) {
-            const data = pricingMatrix[selectedService][selectedSize];
-            priceRangeElement.textContent = data.range;
-            resultDetailsElement.textContent = data.details;
-        }
+        calcServices.forEach(r => { if (r.checked) selectedService = r.value; });
+        calcSizes.forEach(r => { if (r.checked) selectedSize = r.value; });
+
+        const priceText = pricingMatrix[selectedService]?.[selectedSize] || '$800 - $2,500';
+        priceRangeEl.innerText = `${priceText} USD`;
+
+        const whatsappMessage = encodeURIComponent(`Hola Jackson Construction, calculé mi proyecto en el cotizador de la web:\n- Servicio: ${selectedService}\n- Tamaño: ${selectedSize}\n- Estimado preliminar: ${priceText} USD.\nQuisiera agendar una visita para confirmar el presupuesto.`);
+        sendCalcWhatsappBtn.setAttribute('onclick', `window.open('https://wa.me/17875130607?text=${whatsappMessage}', '_blank')`);
     }
 
-    calcInputs.forEach(input => {
-        input.addEventListener('change', updateCalculator);
-    });
+    if (calcServices.length > 0) {
+        calcServices.forEach(r => r.addEventListener('change', updateCalculatorPrice));
+        calcSizes.forEach(r => r.addEventListener('change', updateCalculatorPrice));
+        updateCalculatorPrice();
+    }
 
-    sendCalcWhatsappBtn.addEventListener('click', function () {
-        const selectedService = document.querySelector('input[name="calc_service"]:checked').value;
-        const selectedSize = document.querySelector('input[name="calc_size"]:checked').value;
-        const price = priceRangeElement.textContent;
-
-        const message = `Hola Jackson Construction, calculé mi estimado en su página web:
-- Servicio: ${selectedService}
-- Tamaño: ${selectedSize}
-- Estimado: ${price}
-
-Quisiera agendar una visita gratis a mi propiedad para confirmar este trabajo.`;
-
-        const encodedMessage = encodeURIComponent(message);
-        window.open(`https://wa.me/17875130607?text=${encodedMessage}`, '_blank');
-    });
-
-    updateCalculator();
-
-    // ----------------------------------------------------------------------
-    // 3. Parallax Video Effect on Scroll
-    // ----------------------------------------------------------------------
-    window.addEventListener('scroll', function () {
-        const scrollPosition = window.scrollY;
-        if (scrollPosition < 1200) {
-            const translateY = scrollPosition * 0.35;
-            if (desktopVideo) desktopVideo.style.transform = `translateY(${translateY}px)`;
-            if (mobileVideo) mobileVideo.style.transform = `translateY(${translateY}px)`;
-        }
-    });
-
-    // ----------------------------------------------------------------------
-    // 4. Before / After Interactive Slider
-    // ----------------------------------------------------------------------
+    // ==========================================================================
+    // 3. Before & After Interactive Touch/Mouse Slider
+    // ==========================================================================
     const sliderContainer = document.getElementById('beforeAfterSlider');
     const beforeLayer = document.getElementById('beforeLayer');
     const sliderHandle = document.getElementById('sliderHandle');
+    let isSliding = false;
 
     if (sliderContainer && beforeLayer && sliderHandle) {
-        let isDragging = false;
-
         function moveSlider(x) {
-            const containerRect = sliderContainer.getBoundingClientRect();
-            let position = ((x - containerRect.left) / containerRect.width) * 100;
-
+            const rect = sliderContainer.getBoundingClientRect();
+            let position = ((x - rect.left) / rect.width) * 100;
             if (position < 0) position = 0;
             if (position > 100) position = 100;
-
             beforeLayer.style.width = `${position}%`;
             sliderHandle.style.left = `${position}%`;
         }
 
-        sliderHandle.addEventListener('mousedown', () => { isDragging = true; });
-        window.addEventListener('mouseup', () => { isDragging = false; });
+        sliderContainer.addEventListener('mousedown', (e) => { isSliding = true; moveSlider(e.clientX); });
+        window.addEventListener('mouseup', () => { isSliding = false; });
+        window.addEventListener('mousemove', (e) => { if (isSliding) moveSlider(e.clientX); });
 
-        sliderContainer.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                moveSlider(e.clientX);
+        sliderContainer.addEventListener('touchstart', (e) => { isSliding = true; moveSlider(e.touches[0].clientX); });
+        window.addEventListener('touchend', () => { isSliding = false; });
+        window.addEventListener('touchmove', (e) => { if (isSliding) moveSlider(e.touches[0].clientX); });
+    }
+
+    // ==========================================================================
+    // 4. THREE.JS 3D MATERIAL ENGINE (Interactive WebGL Tile Viewer)
+    // ==========================================================================
+    const container3D = document.getElementById('canvas3dContainer');
+
+    if (container3D && typeof THREE !== 'undefined') {
+        // Scene, Camera, Renderer Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container3D.clientWidth / container3D.clientHeight, 0.1, 1000);
+        camera.position.set(0, 2.8, 4.2);
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(container3D.clientWidth, container3D.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        container3D.appendChild(renderer.domElement);
+
+        // Controls
+        let controls;
+        if (typeof THREE.OrbitControls !== 'undefined') {
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 1.2;
+            controls.maxPolarAngle = Math.PI / 2.1;
+            controls.minDistance = 2;
+            controls.maxDistance = 7;
+        }
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+        scene.add(ambientLight);
+
+        const mainLight = new THREE.DirectionalLight(0xfff0d0, 1.4);
+        mainLight.position.set(5, 8, 5);
+        mainLight.castShadow = true;
+        mainLight.shadow.mapSize.width = 1024;
+        mainLight.shadow.mapSize.height = 1024;
+        scene.add(mainLight);
+
+        const goldFillLight = new THREE.PointLight(0xf5a623, 1.2, 10);
+        goldFillLight.position.set(-4, 3, -3);
+        scene.add(goldFillLight);
+
+        // Procedural Texture Generator Function
+        function createProceduralTexture(type) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+
+            if (type === 'carrara') {
+                ctx.fillStyle = '#FAFAFA';
+                ctx.fillRect(0, 0, 512, 512);
+                ctx.strokeStyle = 'rgba(160, 165, 175, 0.35)';
+                ctx.lineWidth = 3;
+                for (let i = 0; i < 8; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(Math.random() * 512, 0);
+                    ctx.bezierCurveTo(Math.random() * 512, 170, Math.random() * 512, 340, Math.random() * 512, 512);
+                    ctx.stroke();
+                }
+            } else if (type === 'slate') {
+                ctx.fillStyle = '#1D2128';
+                ctx.fillRect(0, 0, 512, 512);
+                for (let i = 0; i < 2000; i++) {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.08})`;
+                    ctx.fillRect(Math.random() * 512, Math.random() * 512, Math.random() * 12, Math.random() * 3);
+                }
+            } else if (type === 'wood') {
+                ctx.fillStyle = '#B87E38';
+                ctx.fillRect(0, 0, 512, 512);
+                ctx.fillStyle = 'rgba(100, 55, 15, 0.25)';
+                for (let y = 0; y < 512; y += 12) {
+                    ctx.fillRect(0, y + (Math.sin(y) * 4), 512, 6);
+                }
+            } else if (type === 'goldmora') {
+                ctx.fillStyle = '#FDFDFD';
+                ctx.fillRect(0, 0, 512, 512);
+                ctx.strokeStyle = 'rgba(212, 150, 20, 0.6)';
+                ctx.lineWidth = 5;
+                for (let i = 0; i < 6; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, Math.random() * 512);
+                    ctx.bezierCurveTo(170, Math.random() * 512, 340, Math.random() * 512, 512, Math.random() * 512);
+                    ctx.stroke();
+                }
             }
+
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            return texture;
+        }
+
+        // Materials Dictionary
+        const materialsData = {
+            carrara: {
+                title: 'Porcelanato Mármol Carrara Blanqueado',
+                desc: 'Ideal para baños de lujo, pisos principales y paredes de ducha. Acabado brillante con vetas grises finas.',
+                texture: createProceduralTexture('carrara'),
+                roughness: 0.1,
+                metalness: 0.1
+            },
+            slate: {
+                title: 'Loseta Slate Piedra Negra Tropical',
+                desc: 'Piedra de alta durabilidad antideslizante para exteriores, terrazas y duchas de estilo moderno.',
+                texture: createProceduralTexture('slate'),
+                roughness: 0.75,
+                metalness: 0.05
+            },
+            wood: {
+                title: 'Vinyl Plank Roble Dorado Impermeable',
+                desc: 'Apariencia de madera cálida resistente al agua 100%, perfecta para salas, dormitorios y oficinas.',
+                texture: createProceduralTexture('wood'),
+                roughness: 0.4,
+                metalness: 0.05
+            },
+            goldmora: {
+                title: 'Azulejo Calacatta Gold Vetas Doradas',
+                desc: 'Acabado de lujo supremo con vetas de oro brillante para baños master y cocinas ejecutivas.',
+                texture: createProceduralTexture('goldmora'),
+                roughness: 0.08,
+                metalness: 0.25
+            }
+        };
+
+        // Create 3D Bevelled Slab Mesh
+        const geometry = new THREE.BoxGeometry(2.4, 0.18, 2.4);
+        let currentMaterialKey = 'carrara';
+        const matInfo = materialsData[currentMaterialKey];
+
+        const tileMaterial = new THREE.MeshStandardMaterial({
+            map: matInfo.texture,
+            roughness: matInfo.roughness,
+            metalness: matInfo.metalness
         });
 
-        // Touch events for mobile
-        sliderHandle.addEventListener('touchstart', () => { isDragging = true; });
-        window.addEventListener('touchend', () => { isDragging = false; });
+        const tileMesh = new THREE.Mesh(geometry, tileMaterial);
+        tileMesh.castShadow = true;
+        tileMesh.receiveShadow = true;
+        scene.add(tileMesh);
 
-        sliderContainer.addEventListener('touchmove', (e) => {
-            if (isDragging && e.touches[0]) {
-                moveSlider(e.touches[0].clientX);
+        // Ground Shadow Plane
+        const shadowPlaneGeo = new THREE.PlaneGeometry(10, 10);
+        const shadowPlaneMat = new THREE.ShadowMaterial({ opacity: 0.3 });
+        const shadowPlane = new THREE.Mesh(shadowPlaneGeo, shadowPlaneMat);
+        shadowPlane.rotation.x = -Math.PI / 2;
+        shadowPlane.position.y = -0.12;
+        shadowPlane.receiveShadow = true;
+        scene.add(shadowPlane);
+
+        // Material Switcher Event Listeners
+        const matBtns = document.querySelectorAll('.mat-btn');
+        const matTitle = document.getElementById('matTitle');
+        const matDesc = document.getElementById('matDesc');
+        const quoteMaterialBtn = document.getElementById('quoteMaterialBtn');
+
+        matBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                matBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const matKey = btn.getAttribute('data-mat');
+                const selectedMat = materialsData[matKey];
+
+                if (selectedMat) {
+                    tileMaterial.map = selectedMat.texture;
+                    tileMaterial.roughness = selectedMat.roughness;
+                    tileMaterial.metalness = selectedMat.metalness;
+                    tileMaterial.needsUpdate = true;
+
+                    matTitle.innerText = selectedMat.title;
+                    matDesc.innerText = selectedMat.desc;
+
+                    const msg = encodeURIComponent(`Hola Jackson Construction, vi el Visor 3D en la web y me interesa cotizar un proyecto con ${selectedMat.title}.`);
+                    quoteMaterialBtn.href = `https://wa.me/17875130607?text=${msg}`;
+
+                    // Small bounce animation
+                    tileMesh.position.y = 0.3;
+                }
+            });
+        });
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            if (controls) controls.update();
+            tileMesh.position.y += (0 - tileMesh.position.y) * 0.1;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Responsive Resize
+        window.addEventListener('resize', () => {
+            if (container3D) {
+                camera.aspect = container3D.clientWidth / container3D.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container3D.clientWidth, container3D.clientHeight);
             }
         });
     }
-
-    // ----------------------------------------------------------------------
-    // 5. Navbar Styling on Scroll
-    // ----------------------------------------------------------------------
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', function () {
-        if (window.scrollY > 50) {
-            navbar.style.padding = '8px 0';
-            navbar.style.background = 'rgba(15, 27, 43, 0.96)';
-        } else {
-            navbar.style.padding = '10px 0';
-            navbar.style.background = 'rgba(15, 27, 43, 0.88)';
-        }
-    });
-
 });

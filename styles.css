@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Jackson Construction - Ultra-Fast 60FPS Performance & Prominent Brand PNGs
+   Jackson Construction - Three.js 3D Material Viewer & Apple Crystal CSS
    ========================================================================== */
 
 :root {
@@ -617,6 +617,129 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
+   THREE.JS 3D MATERIAL VIEWER SECTION
+   ========================================================================== */
+
+.section-3d-viewer {
+    padding: 100px 0;
+    background: rgba(11, 19, 31, 0.65);
+}
+
+.viewer-3d-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold-glass);
+    border-radius: 28px;
+    padding: 36px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.material-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.mat-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: rgba(11, 19, 31, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s var(--apple-ease);
+}
+
+.mat-btn:hover {
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+    transform: translateY(-2px);
+}
+
+.mat-btn.active {
+    background: var(--accent-gold);
+    color: var(--bg-dark);
+    border-color: var(--accent-gold);
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.45);
+}
+
+.mat-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.carrara-dot { background: #EAEAEA; border: 1px solid #999; }
+.slate-dot { background: #2A2E35; border: 1px solid #555; }
+.wood-dot { background: #C48E48; border: 1px solid #8C5C20; }
+.goldmora-dot { background: #F5A623; border: 1px solid #FFF; }
+
+.canvas-3d-wrapper {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: radial-gradient(circle at center, rgba(30, 48, 75, 0.5) 0%, rgba(11, 19, 31, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+    margin-bottom: 28px;
+}
+
+.canvas-3d-container {
+    width: 100%;
+    height: 100%;
+}
+
+.canvas-3d-hint {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(11, 19, 31, 0.8);
+    border: 1px solid var(--border-gold-glass);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    color: var(--accent-gold);
+    backdrop-filter: blur(10px);
+    pointer-events: none;
+}
+
+.material-info-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    background: rgba(11, 19, 31, 0.7);
+    padding: 22px 28px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.material-details h4 {
+    font-size: 1.3rem;
+    color: var(--accent-gold);
+    margin-bottom: 4px;
+}
+
+.material-details p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
    Calculator Section
    ========================================================================== */
 
@@ -836,7 +959,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Why Choose Us (Nuestro Compromiso) - Prominent XL Brand PNG Shields
+   Why Choose Us (Nuestro Compromiso)
    ========================================================================== */
 
 .section-why {
@@ -1076,6 +1199,10 @@ h1, h2, h3, h4 {
 
     .calculator-card {
         padding: 24px;
+    }
+
+    .canvas-3d-wrapper {
+        height: 320px;
     }
 
     .hero-logo-img {
