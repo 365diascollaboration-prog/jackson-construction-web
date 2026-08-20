@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Jackson Construction - Dual Contact System Engine (Jackson & Julio)
+   Jackson Construction - Interactive Web Engine & Sales Showroom
+   Phase 1: Animated Stats Counters & Interactive FAQ Accordion
    Jackson: 787 513 0607 | Julio: 787 546 6234
    ========================================================================== */
 
@@ -39,7 +40,74 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 2. Interactive Calculator Logic (Dual Contacts: Jackson & Julio)
+    // 2. Animated Stats Counters (Phase 1)
+    // ==========================================================================
+    const statNumbers = document.querySelectorAll('.stat-number');
+    let statsAnimated = false;
+
+    function animateStats() {
+        statNumbers.forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-target'), 10);
+            const duration = 1800; // 1.8 seconds
+            const startTime = performance.now();
+
+            function updateCount(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease out quad
+                const easeProgress = 1 - (1 - progress) * (1 - progress);
+                const currentVal = Math.floor(easeProgress * target);
+
+                stat.innerText = currentVal.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCount);
+                } else {
+                    stat.innerText = target.toLocaleString();
+                }
+            }
+            requestAnimationFrame(updateCount);
+        });
+    }
+
+    const statsSection = document.querySelector('.section-stats');
+    if (statsSection && 'IntersectionObserver' in window) {
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !statsAnimated) {
+                    statsAnimated = true;
+                    animateStats();
+                }
+            });
+        }, { threshold: 0.25 });
+
+        statsObserver.observe(statsSection);
+    } else if (statNumbers.length > 0) {
+        animateStats();
+    }
+
+    // ==========================================================================
+    // 3. Interactive FAQ Accordion (Phase 1)
+    // ==========================================================================
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (faqItems.length > 0) {
+        faqItems.forEach(item => {
+            const questionBtn = item.querySelector('.faq-question');
+            if (questionBtn) {
+                questionBtn.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    // Close others for clean accordion feel
+                    faqItems.forEach(i => i.classList.remove('active'));
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+
+    // ==========================================================================
+    // 4. Interactive Calculator Logic (Dual Contacts: Jackson & Julio)
     // ==========================================================================
     const calcServices = document.getElementsByName('calc_service');
     const calcSizes = document.getElementsByName('calc_size');
@@ -103,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 3. Before & After Interactive Touch/Mouse Slider
+    // 5. Before & After Interactive Touch/Mouse Slider
     // ==========================================================================
     const sliderContainer = document.getElementById('beforeAfterSlider');
     const beforeLayer = document.getElementById('beforeLayer');
@@ -130,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 4. WEBGL 3D SHOWROOM ENGINE (Dual Contacts: Jackson & Julio)
+    // 6. WEBGL 3D SHOWROOM ENGINE (Dual Contacts: Jackson & Julio)
     // ==========================================================================
     function init3DShowroomEngine() {
         const container3D = document.getElementById('canvas3dContainer');

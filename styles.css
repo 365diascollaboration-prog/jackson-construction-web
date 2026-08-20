@@ -1,5 +1,6 @@
 /* ==========================================================================
    Jackson Construction - Dual Contact System (Jackson & Julio) & Glassmorphism
+   Phase 1: Stats Counters, FAQ Accordion & Apple Specular Shimmer
    ========================================================================== */
 
 :root {
@@ -269,13 +270,13 @@ h1, h2, h3, h4 {
 
 .nav-links {
     display: flex;
-    gap: 28px;
+    gap: 22px;
 }
 
 .nav-links a {
     color: var(--text-white);
     text-decoration: none;
-    font-size: 0.92rem;
+    font-size: 0.90rem;
     font-weight: 600;
     transition: color 0.2s ease;
     opacity: 0.88;
@@ -425,6 +426,90 @@ h1, h2, h3, h4 {
 .trust-text span {
     font-size: 0.8rem;
     color: var(--text-muted);
+}
+
+/* ==========================================================================
+   STATISTICS & AUTHORITY BAND (Phase 1)
+   ========================================================================== */
+
+.section-stats {
+    padding: 50px 0;
+    background: rgba(8, 15, 25, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    position: relative;
+    z-index: 5;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 28px 22px;
+    text-align: center;
+    transition: transform 0.4s var(--apple-ease), border-color 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    transition: left 0.7s ease;
+}
+
+.stat-card:hover::before {
+    left: 100%;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-gold);
+    box-shadow: 0 12px 30px rgba(245, 166, 35, 0.25);
+}
+
+.stat-number-wrapper {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--accent-gold);
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #FFF0D0 0%, #F5A623 60%, #D4820A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 10px rgba(245, 166, 35, 0.3));
+}
+
+.stat-label {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-bottom: 4px;
+}
+
+.stat-card small {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: block;
 }
 
 /* ==========================================================================
@@ -1071,6 +1156,94 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
+   FAQ ACCORDION SECTION (Phase 1)
+   ========================================================================== */
+
+.section-faq {
+    padding: 100px 0;
+    background: rgba(11, 19, 31, 0.55);
+}
+
+.faq-accordion-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.faq-item {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    overflow: hidden;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: all 0.3s var(--apple-ease);
+}
+
+.faq-item:hover {
+    border-color: rgba(245, 166, 35, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.faq-item.active {
+    border-color: var(--accent-gold);
+    background: var(--bg-card-hover);
+    box-shadow: 0 10px 30px rgba(245, 166, 35, 0.2);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 22px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    background: transparent;
+    border: none;
+    color: var(--text-white);
+    font-family: var(--font-heading);
+    font-size: 1.12rem;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.faq-question:hover {
+    color: var(--accent-gold);
+}
+
+.faq-icon {
+    color: var(--accent-gold);
+    flex-shrink: 0;
+    transition: transform 0.35s var(--apple-ease);
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--apple-ease), padding 0.3s ease;
+    padding: 0 26px;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 250px;
+    padding-bottom: 22px;
+}
+
+.faq-answer p {
+    font-size: 0.96rem;
+    color: #E2E8F0;
+    line-height: 1.65;
+}
+
+/* ==========================================================================
    Why Choose Us & Dual Contact Box (Jackson & Julio)
    ========================================================================== */
 
@@ -1410,5 +1583,19 @@ h1, h2, h3, h4 {
     .dual-nav-buttons {
         flex-direction: column;
         gap: 6px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .stat-number-wrapper {
+        font-size: 2.4rem;
+    }
+
+    .faq-question {
+        font-size: 1rem;
+        padding: 18px 20px;
     }
 }
