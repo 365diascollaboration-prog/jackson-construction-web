@@ -1,7 +1,7 @@
 /* ==========================================================================
    Jackson Construction - Interactive Web Engine & Sales Showroom
    Phase 1: Animated Stats Counters & Interactive FAQ Accordion
-   Phase 2: Single-Page 100% Vector PDF Generator (html2pdf engine)
+   Phase 2: Native Vector 1-Page PDF Generator Engine (jsPDF + AutoTable)
    Jackson: 787 513 0607 | Julio: 787 546 6234
    ========================================================================== */
 
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 4. Interactive Calculator & 1-Page PDF Proforma Generator (Phase 2)
+    // 4. Interactive Calculator & 1-Page Native Vector PDF Generator (Phase 2)
     // ==========================================================================
     const calcServices = document.getElementsByName('calc_service');
     const calcSizes = document.getElementsByName('calc_size');
@@ -119,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const proformaModal = document.getElementById('proformaModal');
     const closeProformaBtn = document.getElementById('closeProformaBtn');
     const printProformaBtn = document.getElementById('printProformaBtn');
-    const printableProforma = document.getElementById('printableProforma');
     const proformaFolio = document.getElementById('proformaFolio');
     const proformaDate = document.getElementById('proformaDate');
     const proformaServiceName = document.getElementById('proformaServiceName');
@@ -131,10 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalSendJulio = document.getElementById('modalSendJulio');
 
     const serviceDescriptions = {
-        'Remodelacion de Bano': 'Demolición, losetas finas, plomería, mamparas de cristal y grifería.',
-        'Instalacion de Pisos': 'Nivelación de contrapisos, losas de porcelanato, vinyl plank o cerámica.',
-        'Demolicion y Escombros': 'Demolición segura de estructuras, paredes y desalojo total en camión.',
-        'Pintura General': 'Preparación de paredes, corrección de grietas y sellado contra humedad tropical.',
+        'Remodelacion de Bano': 'Demolicion, losetas finas, plomeria, mamparas de cristal y griferia.',
+        'Instalacion de Pisos': 'Nivelacion de contrapisos, losas de porcelanato, vinyl plank o ceramica.',
+        'Demolicion y Escombros': 'Demolicion segura de estructuras, paredes y desalojo total en camion propio.',
+        'Pintura General': 'Preparacion de paredes, correccion de grietas y sellado contra humedad tropical.',
         'Construccion General': 'Ampliaciones, levantamiento de paredes en bloque/gypsum y estructuras.'
     };
 
@@ -245,38 +244,200 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 1-Page Direct PDF Generator Engine (html2pdf)
-    if (printProformaBtn && printableProforma) {
-        printProformaBtn.addEventListener('click', () => {
-            const folioCode = (proformaFolio ? proformaFolio.innerText : 'JC-2026').replace('#', '').trim();
-            const originalHtml = printProformaBtn.innerHTML;
+    // Native Vector jsPDF Generator (100% Crisp, Single Page Letter, Zero Glitches)
+    function generateCrispNativePDF() {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+            window.print();
+            return;
+        }
 
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'letter'
+        });
+
+        const pageWidth = doc.internal.pageSize.getWidth(); // 215.9 mm
+        const pageHeight = doc.internal.pageSize.getHeight(); // 279.4 mm
+        const margin = 14;
+
+        // 1. Solid Corporate Header Banner (Navy #0B131F)
+        doc.setFillColor(11, 19, 31);
+        doc.rect(0, 0, pageWidth, 42, 'F');
+
+        // 2. Gold Accent Stripe (#F5A623)
+        doc.setFillColor(245, 166, 35);
+        doc.rect(0, 42, pageWidth, 2.5, 'F');
+
+        // 3. Brand Name & Tagline
+        doc.setTextColor(245, 166, 35);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(20);
+        doc.text('JACKSON CONSTRUCTION', margin, 18);
+
+        doc.setTextColor(203, 213, 225);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9.5);
+        doc.text('Construccion, Remodelacion y Demolicion Profesional en Puerto Rico', margin, 26);
+        doc.text('Contacto: Jackson (787 513 0607) | Julio (787 546 6234)', margin, 33);
+
+        // 4. Meta Badge (Right side of header)
+        doc.setFillColor(245, 166, 35);
+        doc.roundedRect(pageWidth - margin - 55, 11, 55, 7, 2, 2, 'F');
+        doc.setTextColor(11, 19, 31);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8.5);
+        doc.text('PRESUPUESTO FORMAL', pageWidth - margin - 27.5, 15.5, { align: 'center' });
+
+        doc.setTextColor(255, 255, 255);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        const folioCode = (proformaFolio ? proformaFolio.innerText : uniqueFolioNumber);
+        const dateText = (proformaDate ? proformaDate.innerText : getFormattedSpanishDate());
+        doc.text(`Folio: ${folioCode}`, pageWidth - margin, 25, { align: 'right' });
+        doc.text(`Fecha: ${dateText}`, pageWidth - margin, 31, { align: 'right' });
+        doc.text(`Validez: 30 dias`, pageWidth - margin, 37, { align: 'right' });
+
+        // 5. Section: Desglose del Proyecto
+        let currentY = 56;
+        doc.setTextColor(11, 19, 31);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.text('DESGLOSE ESTIMADO DEL PROYECTO', margin, currentY);
+
+        const selectedService = proformaServiceName ? proformaServiceName.innerText : 'Remodelacion de Bano';
+        const selectedDesc = proformaServiceDesc ? proformaServiceDesc.innerText : 'Demolicion, losetas finas, plomeria y mamparas de cristal.';
+        const selectedScope = proformaScope ? proformaScope.innerText : 'Pequeno (1 Bano o Habitacion)';
+        const totalEst = proformaTotalAmount ? proformaTotalAmount.innerText : '$1,200 - $2,800 USD';
+
+        // 6. Vector AutoTable
+        doc.autoTable({
+            startY: currentY + 4,
+            margin: { left: margin, right: margin },
+            head: [['Partida / Concepto', 'Alcance del Proyecto', 'Inversion Estimada']],
+            body: [
+                [
+                    { content: `${selectedService}\n${selectedDesc}`, styles: { fontStyle: 'bold' } },
+                    selectedScope,
+                    { content: totalEst, styles: { fontStyle: 'bold', textColor: [180, 110, 0] } }
+                ]
+            ],
+            headStyles: {
+                fillColor: [11, 19, 31],
+                textColor: [245, 166, 35],
+                fontSize: 9.5,
+                fontStyle: 'bold',
+                halign: 'left'
+            },
+            bodyStyles: {
+                fontSize: 9,
+                cellPadding: 6,
+                textColor: [30, 41, 59]
+            },
+            alternateRowStyles: {
+                fillColor: [248, 250, 252]
+            },
+            columnStyles: {
+                0: { cellWidth: 100 },
+                1: { cellWidth: 45 },
+                2: { cellWidth: 42, halign: 'right' }
+            },
+            theme: 'grid'
+        });
+
+        currentY = doc.lastAutoTable.finalY + 10;
+
+        // 7. Box: Included Features & Guarantees
+        doc.setFillColor(248, 250, 252);
+        doc.setDrawColor(203, 213, 225);
+        doc.roundedRect(margin, currentY, pageWidth - (margin * 2), 48, 3, 3, 'FD');
+
+        doc.setTextColor(11, 19, 31);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9.5);
+        doc.text('PARTIDAS Y GARANTIAS INCLUIDAS EN ESTE PRESUPUESTO:', margin + 6, currentY + 8);
+
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        doc.setTextColor(51, 65, 85);
+
+        const bullets = [
+            'Mano de Obra Calificada: Ejecucion profesional y garantizada por escrito.',
+            'Demolicion y Bote de Escombros: Desalojo total en camion propio (sitio entregado 100% limpio).',
+            'Impermeabilizacion y Sellado: Proteccion contra humedad del clima tropical de Puerto Rico.',
+            'Garantia de Plazos de Entrega: Fecha de inicio y finalizacion estipuladas por contrato formal.'
+        ];
+
+        bullets.forEach((bullet, idx) => {
+            doc.setFillColor(245, 166, 35);
+            doc.circle(margin + 9, currentY + 16 + (idx * 7.5), 1.2, 'F');
+            doc.text(bullet, margin + 14, currentY + 17 + (idx * 7.5));
+        });
+
+        currentY += 56;
+
+        // 8. Total Amount Box
+        doc.setFillColor(11, 19, 31);
+        doc.roundedRect(margin, currentY, pageWidth - (margin * 2), 24, 3, 3, 'F');
+
+        doc.setTextColor(203, 213, 225);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8.5);
+        doc.text('TOTAL ESTIMADO PRELIMINAR:', margin + 8, currentY + 10);
+
+        doc.setTextColor(245, 166, 35);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(16);
+        doc.text(totalEst, pageWidth - margin - 8, currentY + 15, { align: 'right' });
+
+        doc.setTextColor(148, 163, 184);
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(7.5);
+        doc.text('* Estimado sujeto a verificacion visual en visita gratuita de inspeccion en su propiedad.', margin + 8, currentY + 18);
+
+        currentY += 32;
+
+        // 9. Representative Contact Grid
+        doc.setDrawColor(245, 166, 35);
+        doc.setLineWidth(0.5);
+        doc.line(margin, currentY, pageWidth - margin, currentY);
+
+        currentY += 8;
+        doc.setTextColor(11, 19, 31);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.text('REPRESENTANTES OFICIALES JACKSON CONSTRUCTION:', margin, currentY);
+
+        currentY += 6;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        doc.setTextColor(51, 65, 85);
+        doc.text('Jackson: (787) 513-0607 (Llamadas & WhatsApp)', margin, currentY);
+        doc.text('Julio: (787) 546-6234 (Llamadas & WhatsApp)', margin, currentY + 5);
+        doc.text('Area de Cobertura: Toda la Isla de Puerto Rico (78 Municipios)', margin, currentY + 10);
+
+        // 10. Footer note
+        doc.setFontSize(7.5);
+        doc.setTextColor(148, 163, 184);
+        doc.text('Jackson Construction PR - Licenciados, Asegurados y Comprometidos con la Calidad', pageWidth / 2, pageHeight - 8, { align: 'center' });
+
+        // Save PDF
+        const cleanFolio = folioCode.replace('#', '').trim();
+        doc.save(`Presupuesto-Jackson-Construction-${cleanFolio}.pdf`);
+    }
+
+    if (printProformaBtn) {
+        printProformaBtn.addEventListener('click', () => {
+            const originalHtml = printProformaBtn.innerHTML;
             printProformaBtn.innerHTML = `<span>⏳ Generando PDF Oficial...</span>`;
             printProformaBtn.disabled = true;
 
-            const opt = {
-                margin:       [6, 6, 6, 6],
-                filename:     `Presupuesto-Jackson-Construction-${folioCode}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#09101C' },
-                jsPDF:        { unit: 'mm', format: 'letter', orientation: 'portrait' }
-            };
-
-            if (typeof html2pdf !== 'undefined') {
-                html2pdf().set(opt).from(printableProforma).save().then(() => {
-                    printProformaBtn.innerHTML = originalHtml;
-                    printProformaBtn.disabled = false;
-                }).catch(err => {
-                    console.error('Error generating PDF:', err);
-                    window.print();
-                    printProformaBtn.innerHTML = originalHtml;
-                    printProformaBtn.disabled = false;
-                });
-            } else {
-                window.print();
+            setTimeout(() => {
+                generateCrispNativePDF();
                 printProformaBtn.innerHTML = originalHtml;
                 printProformaBtn.disabled = false;
-            }
+            }, 100);
         });
     }
 
