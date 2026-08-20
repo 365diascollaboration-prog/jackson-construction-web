@@ -1,6 +1,7 @@
 /* ==========================================================================
    Jackson Construction - Interactive Web Engine & Sales Showroom
    Phase 1: Animated Stats Counters & Interactive FAQ Accordion
+   Phase 2: Formal Proforma / Document Generator Modal & Print Engine
    Jackson: 787 513 0607 | Julio: 787 546 6234
    ========================================================================== */
 
@@ -54,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
             function updateCount(currentTime) {
                 const elapsed = currentTime - startTime;
                 const progress = Math.min(elapsed / duration, 1);
-                // Ease out quad
                 const easeProgress = 1 - (1 - progress) * (1 - progress);
                 const currentVal = Math.floor(easeProgress * target);
 
@@ -96,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (questionBtn) {
                 questionBtn.addEventListener('click', () => {
                     const isActive = item.classList.contains('active');
-                    // Close others for clean accordion feel
                     faqItems.forEach(i => i.classList.remove('active'));
                     if (!isActive) {
                         item.classList.add('active');
@@ -107,13 +106,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 4. Interactive Calculator Logic (Dual Contacts: Jackson & Julio)
+    // 4. Interactive Calculator & Proforma Generator (Phase 2)
     // ==========================================================================
     const calcServices = document.getElementsByName('calc_service');
     const calcSizes = document.getElementsByName('calc_size');
     const priceRangeEl = document.getElementById('priceRange');
     const sendCalcJacksonBtn = document.getElementById('sendCalcJackson');
     const sendCalcJulioBtn = document.getElementById('sendCalcJulio');
+    const openProformaModalBtn = document.getElementById('openProformaModalBtn');
+
+    // Proforma Modal Elements
+    const proformaModal = document.getElementById('proformaModal');
+    const closeProformaBtn = document.getElementById('closeProformaBtn');
+    const printProformaBtn = document.getElementById('printProformaBtn');
+    const proformaFolio = document.getElementById('proformaFolio');
+    const proformaDate = document.getElementById('proformaDate');
+    const proformaServiceName = document.getElementById('proformaServiceName');
+    const proformaServiceDesc = document.getElementById('proformaServiceDesc');
+    const proformaScope = document.getElementById('proformaScope');
+    const proformaTableTotal = document.getElementById('proformaTableTotal');
+    const proformaTotalAmount = document.getElementById('proformaTotalAmount');
+    const modalSendJackson = document.getElementById('modalSendJackson');
+    const modalSendJulio = document.getElementById('modalSendJulio');
+
+    const serviceDescriptions = {
+        'Remodelacion de Bano': 'Demolición, losetas finas, plomería, mamparas de cristal y grifería.',
+        'Instalacion de Pisos': 'Nivelación de contrapisos, losas de porcelanato, vinyl plank o cerámica.',
+        'Demolicion y Escombros': 'Demolición segura de estructuras, paredes y desalojo total en camión.',
+        'Pintura General': 'Preparación de paredes, corrección de grietas y sellado contra humedad tropical.',
+        'Construccion General': 'Ampliaciones, levantamiento de paredes en bloque/gypsum y estructuras.'
+    };
 
     const pricingMatrix = {
         'Remodelacion de Bano': {
@@ -143,7 +165,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    function updateCalculatorPrice() {
+    // Generate unique session folio
+    const uniqueFolioNumber = `#JC-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+
+    function getFormattedSpanishDate() {
+        const today = new Date();
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        return today.toLocaleDateString('es-ES', options);
+    }
+
+    function updateCalculatorAndProforma() {
         let selectedService = 'Remodelacion de Bano';
         let selectedSize = 'Pequeno (1 Habitacion o Bano)';
 
@@ -151,23 +182,73 @@ document.addEventListener('DOMContentLoaded', () => {
         calcSizes.forEach(r => { if (r.checked) selectedSize = r.value; });
 
         const priceText = pricingMatrix[selectedService]?.[selectedSize] || '$800 - $2,500';
-        if (priceRangeEl) priceRangeEl.innerText = `${priceText} USD`;
+        const formattedPrice = `${priceText} USD`;
 
-        const msgJackson = encodeURIComponent(`Hola Jackson, calculé mi proyecto en la página web:\n- Servicio: ${selectedService}\n- Tamaño: ${selectedSize}\n- Estimado preliminar: ${priceText} USD.\nQuisiera agendar una visita en mi propiedad.`);
-        const msgJulio = encodeURIComponent(`Hola Julio, calculé mi proyecto en la página web:\n- Servicio: ${selectedService}\n- Tamaño: ${selectedSize}\n- Estimado preliminar: ${priceText} USD.\nQuisiera agendar una visita en mi propiedad.`);
+        // Update Calculator Box
+        if (priceRangeEl) priceRangeEl.innerText = formattedPrice;
 
+        // Update Proforma Modal Elements
+        if (proformaFolio) proformaFolio.innerText = uniqueFolioNumber;
+        if (proformaDate) proformaDate.innerText = getFormattedSpanishDate();
+        if (proformaServiceName) proformaServiceName.innerText = selectedService;
+        if (proformaServiceDesc) proformaServiceDesc.innerText = serviceDescriptions[selectedService] || 'Mano de obra especializada y materiales de primera.';
+        if (proformaScope) proformaScope.innerText = selectedSize;
+        if (proformaTableTotal) proformaTableTotal.innerText = formattedPrice;
+        if (proformaTotalAmount) proformaTotalAmount.innerText = formattedPrice;
+
+        // WhatsApp Messages with Folio & Breakdown
+        const msgJackson = encodeURIComponent(`Hola Jackson, generé mi Presupuesto Formal ${uniqueFolioNumber} en la página web:\n- Servicio: ${selectedService}\n- Alcance: ${selectedSize}\n- Estimado preliminar: ${formattedPrice}\nQuisiera agendar una visita en mi propiedad.`);
+        const msgJulio = encodeURIComponent(`Hola Julio, generé mi Presupuesto Formal ${uniqueFolioNumber} en la página web:\n- Servicio: ${selectedService}\n- Alcance: ${selectedSize}\n- Estimado preliminar: ${formattedPrice}\nQuisiera agendar una visita en mi propiedad.`);
+
+        // Direct Calculator Buttons
         if (sendCalcJacksonBtn) {
             sendCalcJacksonBtn.setAttribute('onclick', `window.open('https://wa.me/17875130607?text=${msgJackson}', '_blank')`);
         }
         if (sendCalcJulioBtn) {
             sendCalcJulioBtn.setAttribute('onclick', `window.open('https://wa.me/17875466234?text=${msgJulio}', '_blank')`);
         }
+
+        // Modal Action Buttons
+        if (modalSendJackson) modalSendJackson.href = `https://wa.me/17875130607?text=${msgJackson}`;
+        if (modalSendJulio) modalSendJulio.href = `https://wa.me/17875466234?text=${msgJulio}`;
     }
 
     if (calcServices.length > 0) {
-        calcServices.forEach(r => r.addEventListener('change', updateCalculatorPrice));
-        calcSizes.forEach(r => r.addEventListener('change', updateCalculatorPrice));
-        updateCalculatorPrice();
+        calcServices.forEach(r => r.addEventListener('change', updateCalculatorAndProforma));
+        calcSizes.forEach(r => r.addEventListener('change', updateCalculatorAndProforma));
+        updateCalculatorAndProforma();
+    }
+
+    // Open/Close Proforma Modal
+    if (openProformaModalBtn && proformaModal) {
+        openProformaModalBtn.addEventListener('click', () => {
+            updateCalculatorAndProforma();
+            proformaModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    if (closeProformaBtn && proformaModal) {
+        closeProformaBtn.addEventListener('click', () => {
+            proformaModal.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (proformaModal) {
+        proformaModal.addEventListener('click', (e) => {
+            if (e.target === proformaModal) {
+                proformaModal.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Print / PDF Button
+    if (printProformaBtn) {
+        printProformaBtn.addEventListener('click', () => {
+            window.print();
+        });
     }
 
     // ==========================================================================
