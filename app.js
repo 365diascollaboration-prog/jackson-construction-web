@@ -1,7 +1,7 @@
 /* ==========================================================================
    Jackson Construction - Interactive Web Engine & Sales Showroom
    Phase 1: Animated Stats Counters & Interactive FAQ Accordion
-   Phase 2: Formal Proforma / Document Generator Modal & Print Engine
+   Phase 2: Single-Page 100% Vector PDF Generator (html2pdf engine)
    Jackson: 787 513 0607 | Julio: 787 546 6234
    ========================================================================== */
 
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 4. Interactive Calculator & Proforma Generator (Phase 2)
+    // 4. Interactive Calculator & 1-Page PDF Proforma Generator (Phase 2)
     // ==========================================================================
     const calcServices = document.getElementsByName('calc_service');
     const calcSizes = document.getElementsByName('calc_size');
@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const proformaModal = document.getElementById('proformaModal');
     const closeProformaBtn = document.getElementById('closeProformaBtn');
     const printProformaBtn = document.getElementById('printProformaBtn');
+    const printableProforma = document.getElementById('printableProforma');
     const proformaFolio = document.getElementById('proformaFolio');
     const proformaDate = document.getElementById('proformaDate');
     const proformaServiceName = document.getElementById('proformaServiceName');
@@ -244,10 +245,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Print / PDF Button
-    if (printProformaBtn) {
+    // 1-Page Direct PDF Generator Engine (html2pdf)
+    if (printProformaBtn && printableProforma) {
         printProformaBtn.addEventListener('click', () => {
-            window.print();
+            const folioCode = (proformaFolio ? proformaFolio.innerText : 'JC-2026').replace('#', '').trim();
+            const originalHtml = printProformaBtn.innerHTML;
+
+            printProformaBtn.innerHTML = `<span>⏳ Generando PDF Oficial...</span>`;
+            printProformaBtn.disabled = true;
+
+            const opt = {
+                margin:       [6, 6, 6, 6],
+                filename:     `Presupuesto-Jackson-Construction-${folioCode}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#09101C' },
+                jsPDF:        { unit: 'mm', format: 'letter', orientation: 'portrait' }
+            };
+
+            if (typeof html2pdf !== 'undefined') {
+                html2pdf().set(opt).from(printableProforma).save().then(() => {
+                    printProformaBtn.innerHTML = originalHtml;
+                    printProformaBtn.disabled = false;
+                }).catch(err => {
+                    console.error('Error generating PDF:', err);
+                    window.print();
+                    printProformaBtn.innerHTML = originalHtml;
+                    printProformaBtn.disabled = false;
+                });
+            } else {
+                window.print();
+                printProformaBtn.innerHTML = originalHtml;
+                printProformaBtn.disabled = false;
+            }
         });
     }
 
