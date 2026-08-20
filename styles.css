@@ -2,6 +2,7 @@
    Jackson Construction - Dual Contact System (Jackson & Julio) & Glassmorphism
    Phase 1: Stats Counters, FAQ Accordion & Apple Specular Shimmer
    Phase 2: Formal Proforma / Document Generator Modal & Single-Page PDF Engine
+   Phase 3: Interactive Puerto Rico Coverage Selector & 5-Point Ironclad Guarantee
    ========================================================================== */
 
 :root {
@@ -1396,95 +1397,185 @@ h1, h2, h3, h4 {
     flex-wrap: wrap;
 }
 
-/* Strict Clean Print Styling */
-@media print {
-    html, body {
-        background: #FFFFFF !important;
-        color: #000000 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
+/* ==========================================================================
+   PUERTO RICO COVERAGE SECTION (Phase 3)
+   ========================================================================== */
 
-    .video-container,
-    .video-overlay,
-    .navbar,
-    .hero-section,
-    .section-stats,
-    .section-services,
-    .section-3d-viewer,
-    .section-calculator,
-    .section-portfolio,
-    .section-faq,
-    .section-why,
-    .footer,
-    .whatsapp-float-wrapper,
-    .proforma-close-btn,
-    .proforma-modal-actions {
-        display: none !important;
-    }
+.section-coverage {
+    padding: 90px 0;
+    background: rgba(8, 15, 25, 0.75);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
 
-    .proforma-modal-overlay {
-        position: static !important;
-        background: transparent !important;
-        padding: 0 !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
+.coverage-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold-glass);
+    border-radius: 26px;
+    padding: 40px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
+}
 
-    .proforma-modal-container {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        max-width: 100% !important;
-    }
+.coverage-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
 
-    .proforma-document {
-        background: #FFFFFF !important;
-        color: #000000 !important;
-        border: 2px solid #D4AF37 !important;
-        padding: 24px !important;
-        margin: 0 auto !important;
-        page-break-after: avoid !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
+.coverage-header h2 {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+}
 
-    .proforma-brand-text h3,
-    .proforma-meta-row strong,
-    .proforma-table td strong,
-    .proforma-list li,
-    .proforma-rep span {
-        color: #111111 !important;
-    }
+.coverage-header p {
+    color: var(--text-muted);
+    max-width: 650px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+}
 
-    .proforma-brand-text p,
-    .proforma-meta-row,
-    .proforma-subdesc,
-    .proforma-guarantee-seal small,
-    .proforma-total-box small,
-    .proforma-rep strong {
-        color: #444444 !important;
-    }
+.coverage-search-box {
+    max-width: 700px;
+    margin: 0 auto 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
 
-    .text-gold-val,
-    .proforma-total-box h3,
-    .proforma-section-title,
-    .proforma-guarantee-seal strong {
-        color: #B37D14 !important;
-    }
+.custom-select-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
-    .proforma-table th {
-        background: #F0F2F5 !important;
-        color: #222222 !important;
-    }
+.coverage-select-lbl {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    letter-spacing: 0.5px;
+}
 
-    .proforma-features-box,
-    .proforma-footer-grid,
-    .proforma-meta {
-        background: #F8F9FA !important;
-        border: 1px solid #E2E8F0 !important;
-    }
+.coverage-select {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: rgba(11, 19, 31, 0.90);
+    border: 1.5px solid var(--accent-gold);
+    color: var(--text-white);
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.coverage-select:focus {
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.5);
+    border-color: #FFFFFF;
+}
+
+.coverage-select option {
+    background: #0B131F;
+    color: #FFFFFF;
+    padding: 12px;
+}
+
+.coverage-quick-pills {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.quick-lbl {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.pill-btn {
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-white);
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pill-btn:hover {
+    background: rgba(245, 166, 35, 0.25);
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+    transform: translateY(-2px);
+}
+
+.pill-btn.active {
+    background: var(--accent-gold);
+    color: var(--bg-dark);
+    border-color: var(--accent-gold);
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(245, 166, 35, 0.4);
+}
+
+.coverage-result-box {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(11, 19, 31, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s var(--apple-ease);
+}
+
+.coverage-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.status-indicator-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #22C55E;
+    box-shadow: 0 0 12px #22C55E;
+    animation: pulseStatus 2s infinite ease-in-out;
+}
+
+@keyframes pulseStatus {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+.coverage-result-box p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.coverage-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.coverage-actions .btn {
+    flex: 1;
+    min-width: 260px;
 }
 
 /* ==========================================================================
@@ -1681,7 +1772,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Why Choose Us & Dual Contact Box (Jackson & Julio)
+   Why Choose Us: 5-Point Ironclad Guarantee & Dual Contact Card (Phase 3)
    ========================================================================== */
 
 .section-why {
@@ -1700,50 +1791,60 @@ h1, h2, h3, h4 {
     margin-top: 36px;
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 24px;
 }
 
 .why-item {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 20px;
+    background: rgba(18, 30, 48, 0.55);
+    padding: 18px 22px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s var(--apple-ease), border-color 0.3s ease;
+}
+
+.why-item:hover {
+    transform: translateX(6px);
+    border-color: var(--accent-gold);
 }
 
 .why-icon-3d {
-    width: 84px;
-    height: 84px;
-    border-radius: 20px;
+    width: 68px;
+    height: 68px;
+    border-radius: 16px;
     background: rgba(245, 166, 35, 0.2);
-    border: 2px solid var(--border-gold-glass);
+    border: 1.5px solid var(--border-gold-glass);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3);
-    transition: transform 0.3s var(--apple-ease), background 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s var(--apple-ease);
 }
 
 .why-item:hover .why-icon-3d {
     transform: scale(1.1) rotate(4deg);
     background: rgba(245, 166, 35, 0.35);
     border-color: var(--accent-gold);
-    box-shadow: 0 12px 30px rgba(245, 166, 35, 0.4);
 }
 
 .why-shield-png {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
     object-fit: contain;
-    filter: drop-shadow(0 4px 12px rgba(245, 166, 35, 0.65));
+    filter: drop-shadow(0 3px 10px rgba(245, 166, 35, 0.65));
 }
 
 .why-item h4 {
-    font-size: 1.3rem;
-    margin-bottom: 6px;
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+    color: var(--text-white);
 }
 
 .why-item p {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     color: var(--text-muted);
 }
 
@@ -2007,6 +2108,19 @@ h1, h2, h3, h4 {
 
     .calculator-card {
         padding: 24px;
+    }
+
+    .coverage-card {
+        padding: 24px 18px;
+    }
+
+    .coverage-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .coverage-actions .btn {
+        width: 100%;
+        min-width: 100%;
     }
 
     .proforma-modal-container {

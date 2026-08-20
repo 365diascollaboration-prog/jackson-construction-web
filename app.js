@@ -2,6 +2,7 @@
    Jackson Construction - Interactive Web Engine & Sales Showroom
    Phase 1: Animated Stats Counters & Interactive FAQ Accordion
    Phase 2: Native Vector 1-Page PDF Generator Engine (jsPDF + AutoTable)
+   Phase 3: Interactive Puerto Rico Coverage Selector & Town Dispatcher
    Jackson: 787 513 0607 | Julio: 787 546 6234
    ========================================================================== */
 
@@ -442,7 +443,64 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 5. Before & After Interactive Touch/Mouse Slider
+    // 5. Interactive Puerto Rico Coverage Selector (Phase 3)
+    // ==========================================================================
+    const municipioSelect = document.getElementById('municipioSelect');
+    const pillBtns = document.querySelectorAll('.coverage-quick-pills .pill-btn');
+    const coverageTownName = document.getElementById('coverageTownName');
+    const coverageJacksonBtn = document.getElementById('coverageJacksonBtn');
+    const coverageJulioBtn = document.getElementById('coverageJulioBtn');
+
+    function updateCoverageTown(townName) {
+        if (coverageTownName) coverageTownName.innerText = townName;
+
+        const msgJackson = encodeURIComponent(`Hola Jackson, tengo una propiedad en ${townName} y quisiera agendar una visita de inspección gratuita.`);
+        const msgJulio = encodeURIComponent(`Hola Julio, tengo una propiedad en ${townName} y quisiera agendar una visita de inspección gratuita.`);
+
+        if (coverageJacksonBtn) {
+            coverageJacksonBtn.href = `https://wa.me/17875130607?text=${msgJackson}`;
+            coverageJacksonBtn.innerText = `💬 Agendar en ${townName} con Jackson (787 513 0607)`;
+        }
+
+        if (coverageJulioBtn) {
+            coverageJulioBtn.href = `https://wa.me/17875466234?text=${msgJulio}`;
+            coverageJulioBtn.innerText = `💬 Agendar en ${townName} con Julio (787 546 6234)`;
+        }
+
+        // Sync dropdown & pills
+        if (municipioSelect && municipioSelect.value !== townName) {
+            const matchOption = Array.from(municipioSelect.options).find(opt => opt.value === townName);
+            if (matchOption) {
+                municipioSelect.value = townName;
+            }
+        }
+
+        pillBtns.forEach(pill => {
+            if (pill.getAttribute('data-town') === townName) {
+                pill.classList.add('active');
+            } else {
+                pill.classList.remove('active');
+            }
+        });
+    }
+
+    if (municipioSelect) {
+        municipioSelect.addEventListener('change', (e) => {
+            updateCoverageTown(e.target.value);
+        });
+    }
+
+    if (pillBtns.length > 0) {
+        pillBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const town = btn.getAttribute('data-town');
+                updateCoverageTown(town);
+            });
+        });
+    }
+
+    // ==========================================================================
+    // 6. Before & After Interactive Touch/Mouse Slider
     // ==========================================================================
     const sliderContainer = document.getElementById('beforeAfterSlider');
     const beforeLayer = document.getElementById('beforeLayer');
@@ -469,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 6. WEBGL 3D SHOWROOM ENGINE (Dual Contacts: Jackson & Julio)
+    // 7. WEBGL 3D SHOWROOM ENGINE (Dual Contacts: Jackson & Julio)
     // ==========================================================================
     function init3DShowroomEngine() {
         const container3D = document.getElementById('canvas3dContainer');
